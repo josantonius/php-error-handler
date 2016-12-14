@@ -1,0 +1,45 @@
+{
+    "name":        "josantonius/errorhandler",
+    "version":     "1.0.0",
+    "type":        "library",
+    "description": "PHP library for handling exceptions and errors.",
+    "keywords": [
+        "Exception",
+        "Exception handler",
+        "Error handler",
+        "throw",
+        "Error",
+        "Throwable",
+        "HHVM",
+        "PHP"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name":     "Josantonius",
+            "email":    "info@josantonius.com",
+            "homepage": "https://github.com/josantonius",
+            "role":     "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "require": {
+        "php" : ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Josantonius\\ErrorHandler\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Josantonius\\ErrorHandler\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
