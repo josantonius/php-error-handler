@@ -12,7 +12,7 @@
  * @link       https://github.com/Josantonius/PHP-ErrorHandler
  * @since      File available since 1.0.0 - Update: 2016-12-19
  */
-
+ 
 namespace Josantonius\ErrorHandler;
 
 # use Josantonius\ErrorHandler\Exception\ErrorHandlerException;
