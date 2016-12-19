@@ -10,12 +10,12 @@
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @version    1.0.0
  * @link       https://github.com/Josantonius/PHP-ErrorHandler
- * @since      File available since 1.0.0 - Update: 2016-12-14
+ * @since      File available since 1.0.0 - Update: 2016-12-19
  */
 
 namespace Josantonius\ErrorHandler;
 
-use Josantonius\ErrorHandler\Exception\ErrorHandlerException;
+# use Josantonius\ErrorHandler\Exception\ErrorHandlerException;
 
 /**
  * Handling exceptions and errors.
