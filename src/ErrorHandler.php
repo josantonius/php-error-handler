@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * PHP library for handling exceptions and errors.
  * 
@@ -8,9 +8,9 @@
  * @author     Josantonius - info@josantonius.com
  * @copyright  Copyright (c) 2016 JST PHP Framework
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @version    1.0.0
+ * @version    1.1.0
  * @link       https://github.com/Josantonius/PHP-ErrorHandler
- * @since      File available since 1.0.0 - Update: 2016-12-19
+ * @since      File available since 1.0.0 - Update: 2017-01-30
  */
  
 namespace Josantonius\ErrorHandler;
@@ -91,7 +91,7 @@ class ErrorHandler {
      * @param int $file → error file
      * @param int $line → error line
      */
-    public function catchError(int $code, string $msg, string $file, int $line) {
+    public function catchError($code, $msg, $file, $line) {
 
         static::$stack = [
             'type'    => $this->getErrorType($code),
@@ -131,9 +131,9 @@ class ErrorHandler {
 
         static::$stack = [
             'type'       => 'Exception',
-            'message'    => $e->getMessage() ?? '',
-            'file'       => $e->getFile()    ?? 0,
-            'line'       => $e->getLine()    ?? 0,
+            'message'    => (isset($e->getMessage())) ? $e->getMessage() : '',
+            'file'       => (isset($e->getFile())) ? $e->getFile() : 0,
+            'line'       => (isset($e->getLine())) ? $e->getLine() : 0,
             'code'       => $e->getCode() ? "[" . $e->getCode() . "]" : "",
             'trace'      => '',
         ];
@@ -145,12 +145,14 @@ class ErrorHandler {
             foreach ($e->getTrace() as $key => $value) {
                     
                 $tab .= "· · · · ";
+
+                $statusCode = (isset($e->statusCode)) ? $e->statusCode : 0;
                 
                 static::$stack['trace'] = "\r\n\r\n<hr>" .
 
                     $tab . " [Trace "     . ($key + 1) . "]"            .
                     $tab . " FILE: "      . $value['file']              .
-                    $tab . " HTTP CODE: " . ($e->statusCode ?? 0)       .
+                    $tab . " HTTP CODE: " . $statusCode       .
                     $tab . " FUNCTION: "  . $value['function']          .
                     $tab . " CLASS: "     . $value['class']             .
                     $tab . " ARGS: "      . json_encode($value['args']) .
@@ -171,7 +173,7 @@ class ErrorHandler {
      *
      * @return string   → error type
      */
-    protected function getErrorType(int $code): string {
+    protected function getErrorType($code) {
             
         switch($code) {
 
@@ -227,7 +229,10 @@ class ErrorHandler {
 
         ob_start();
 
-        static::$stack['css'] ?? static::$stack['css'] = require($css);
+        if (!isset(static::$stack['css'])) {
+
+            static::$stack['css'] = require($css);
+        }
         
         require(__DIR__ . '/resources/view.php');
 
