@@ -7,9 +7,9 @@
  * @author     Josantonius - info@josantonius.com
  * @copyright  Copyright (c) 2016 JST PHP Framework
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @version    1.0.0
+ * @version    1.1.0
  * @link       https://github.com/Josantonius/ErrorHandler
- * @since      Class available since 1.0.0 - Update: Dec 05, 2016 
+ * @since      File available since 1.0.0 - Update: 2017-01-30 
  */
 ?>
 <style type="text/css">
