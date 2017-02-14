@@ -58,18 +58,14 @@ ErrorHandler->getErrorType();
 ErrorHandler->show();
 
 ### Imágenes
-img[src$="centerme"] {
-  display:block;
-  margin: 0 auto;
-}
+
 Vista desde PHP
-![image](resources/images/example-error-handler-php-library.png?style=centerme)
-![image](resources/images/example-exception-handler-php-library.png?style=centerme)
+![image](resources/images/example-error-handler-php-library.png)
+![image](resources/images/example-exception-handler-php-library.png)
 
 Vista desde HHVM
-![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme)
-![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme).png?style=centerme)
-
+![image](resources/images/example-error-handler-hhvm-php-library.png)
+![image](resources/images/example-exception-handler-hhvm-php-library.png)
 
 ```
 ### Uso

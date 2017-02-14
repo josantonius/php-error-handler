@@ -59,17 +59,14 @@ ErrorHandler->show();
 ```
 
 ### Images
-img[src$="centerme"] {
-  display:block;
-  margin: 0 auto;
-}
+
 View from PHP
-![image](resources/images/example-error-handler-php-library.png?style=centerme)
-![image](resources/images/example-exception-handler-php-library.png?style=centerme)
+![image](resources/images/example-error-handler-php-library.png)
+![image](resources/images/example-exception-handler-php-library.png)
 
 View from HHVM
-![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme)
-![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme).png?style=centerme)
+![image](resources/images/example-error-handler-hhvm-php-library.png)
+![image](resources/images/example-exception-handler-hhvm-php-library.png)
 
 ### Usage
 
