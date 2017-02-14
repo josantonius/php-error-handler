@@ -64,7 +64,7 @@ img[src$="centerme"] {
   margin: 0 auto;
 }
 View from PHP
-![image](resources/images/example-error-handler-php-library.png.png?style=centerme)
+![image](resources/images/example-error-handler-php-library.png?style=centerme)
 ![image](resources/images/example-exception-handler-php-library.png?style=centerme)
 
 View from HHVM
