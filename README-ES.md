@@ -12,6 +12,7 @@ Librería PHP para manejar excepciones y errores.
 - [Requisitos](#requisitos)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
 - [Métodos disponibles](#métodos-disponibles)
+- [Imágenes](#imagenes)
 - [Uso](#uso)
 - [Tests](#tests)
 - [Manejador de excepciones](#manejador-de-excepciones)
@@ -55,6 +56,21 @@ ErrorHandler->exception();
 ErrorHandler->prepareException();
 ErrorHandler->getErrorType();
 ErrorHandler->show();
+
+### Imágenes
+img[src$="centerme"] {
+  display:block;
+  margin: 0 auto;
+}
+Vista desde PHP
+![image](resources/images/example-error-handler-php-library.png.png?style=centerme)
+![image](resources/images/example-exception-handler-php-library.png?style=centerme)
+
+Vista desde HHVM
+![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme)
+![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme).png?style=centerme)
+
+
 ```
 ### Uso
 

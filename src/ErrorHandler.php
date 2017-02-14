@@ -2,15 +2,11 @@
 /**
  * PHP library for handling exceptions and errors.
  * 
- * @category   JST
- * @package    ErrorHandler
- * @subpackage ErrorHandler
  * @author     Josantonius - info@josantonius.com
  * @copyright  Copyright (c) 2016 JST PHP Framework
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @version    1.1.0
  * @link       https://github.com/Josantonius/PHP-ErrorHandler
- * @since      File available since 1.0.0 - Update: 2017-01-30
+ * @since      File available since 1.0.0 - Update: 2017-02-14
  */
  
 namespace Josantonius\ErrorHandler;

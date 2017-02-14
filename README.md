@@ -12,6 +12,7 @@ PHP library for handling exceptions and errors.
 - [Requirements](#requirements)
 - [Quick Start and Examples](#quick-start-and-examples)
 - [Available Methods](#available-methods)
+- [Images](#images)
 - [Usage](#usage)
 - [Tests](#tests)
 - [Exception Handler](#exception-handler)
@@ -56,6 +57,20 @@ ErrorHandler->prepareException();
 ErrorHandler->getErrorType();
 ErrorHandler->show();
 ```
+
+### Images
+img[src$="centerme"] {
+  display:block;
+  margin: 0 auto;
+}
+View from PHP
+![image](resources/images/example-error-handler-php-library.png.png?style=centerme)
+![image](resources/images/example-exception-handler-php-library.png?style=centerme)
+
+View from HHVM
+![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme)
+![image](resources/images/example-error-handler-hhvm-php-library.png?style=centerme).png?style=centerme)
+
 ### Usage
 
 Example of use for this library:
