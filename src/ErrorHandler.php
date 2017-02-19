@@ -127,9 +127,9 @@ class ErrorHandler {
 
         static::$stack = [
             'type'       => 'Exception',
-            'message'    => (isset($e->getMessage())) ? $e->getMessage() : '',
-            'file'       => (isset($e->getFile())) ? $e->getFile() : 0,
-            'line'       => (isset($e->getLine())) ? $e->getLine() : 0,
+            'message'    => (null !== $e->getMessage()) ? $e->getMessage() : '',
+            'file'       => (null !== $e->getFile()) ? $e->getFile() : 0,
+            'line'       => (null !== $e->getLine()) ? $e->getLine() : 0,
             'code'       => $e->getCode() ? "[" . $e->getCode() . "]" : "",
             'trace'      => '',
         ];
