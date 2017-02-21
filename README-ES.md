@@ -49,23 +49,17 @@ use Josantonius\ErrorHandler\ErrorHandler;
 Métodos disponibles en esta librería:
 
 ```php
-ErrorHandler->catchThrowable();
-ErrorHandler->catchException();
-ErrorHandler->catchError();
+ErrorHandler->error();
 ErrorHandler->exception();
-ErrorHandler->prepareException();
 ErrorHandler->getErrorType();
-ErrorHandler->show();
+ErrorHandler->render();
 
 ### Imágenes
 
-Vista desde PHP
-![image](resources/images/example-error-handler-php-library.png)
-![image](resources/images/example-exception-handler-php-library.png)
-
-Vista desde HHVM
-![image](resources/images/example-error-handler-hhvm-php-library.png)
-![image](resources/images/example-exception-handler-hhvm-php-library.png)
+![image](resources/images/exception.png)
+![image](resources/images/error.png)
+![image](resources/images/notice.png)
+![image](resources/images/warning.png)
 
 ```
 ### Uso

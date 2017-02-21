@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.1.1 - 2017-02-21
+* Added `Josantonius\ErrorHandler\ErrorHandler->getPreviewCode()` method.
+* Deleted `Josantonius\ErrorHandler\ErrorHandler->catchThrowable()` method.
+* Deleted `Josantonius\ErrorHandler\ErrorHandler->catchException()` method.
+* Changed `Josantonius\ErrorHandler\ErrorHandler->catchError()` method to `Josantonius\ErrorHandler\ErrorHandler->error()`.
+* Changed `Josantonius\ErrorHandler\ErrorHandler->prepareException()` method to `Josantonius\ErrorHandler\ErrorHandler->exception()`.
+* Changed `Josantonius\ErrorHandler\ErrorHandler->show()` method to `Josantonius\ErrorHandler\ErrorHandler->render()`.
+
 ## 1.1.0 - 2017-01-30
 * Compatible with PHP 5.6 or higher.
 

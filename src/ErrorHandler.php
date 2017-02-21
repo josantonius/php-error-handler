@@ -3,10 +3,10 @@
  * PHP library for handling exceptions and errors.
  * 
  * @author     Josantonius - info@josantonius.com
- * @copyright  Copyright (c) 2016 JST PHP Framework
+ * @copyright  Copyright (c) 2016-2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Josantonius/PHP-ErrorHandler
- * @since      File available since 1.0.0 - Update: 2017-02-14
+ * @link       https://github.com/Josantonius/ErrorHandler
+ * @since      File available since 1.0.0 - Update: 2017-02-21
  */
  
 namespace Josantonius\ErrorHandler;
@@ -30,52 +30,25 @@ class ErrorHandler {
     protected static $stack;
 
     /**
+     * Style load validator.
+     *
+     * @since 1.0.0
+     * 
+     * @var bool
+     */
+    protected static $styles = false;
+
+    /**
      * Catch errors and exceptions and execute the method.
      *
      * @since 1.0.0
      */
     public function __construct() {
                                                                                           
-        /**
-         * Compatibility with exception and error handler for PHP7 and HHVM.
-         *
-         * @since 1.0.0
-         */
-        if (!defined('HHVM_VERSION') && version_compare(phpversion(), '7.0.0', '>=')) { 
+        set_exception_handler(array($this, 'exception'));
 
-            set_exception_handler(array($this, 'catchThrowable'));
-
-        } else { 
-            
-            set_exception_handler(array($this, 'catchException'));
-        } 
-
-        set_error_handler(array($this, 'catchError'));
+        set_error_handler(array($this, 'error'));
     }                                                
-
-    /**
-     * Handle exceptions catch.
-     *
-     * @since 1.0.0
-     * 
-     * @param object $e Throwable object
-     */
-    public function catchThrowable(Throwable $e) {
-
-        $this->prepareException($e);
-    }
-
-    /**
-     * Handle exceptions catch.
-     *
-     * @since 1.0.0
-     * 
-     * @param object $e Exception object
-     */
-    public function catchException(Exception $e) {
-
-        $this->prepareException($e);
-    }
 
     /**
      * Handle error catch.
@@ -87,18 +60,21 @@ class ErrorHandler {
      * @param int $file → error file
      * @param int $line → error line
      */
-    public function catchError($code, $msg, $file, $line) {
+    public function error($code, $msg, $file, $line) {
 
         static::$stack = [
             'type'    => $this->getErrorType($code),
             'message' => $msg,
             'file'    => $file,
             'line'    => $line,
-            'code'    => $code ? "[" . $code . "]" : "",
-            'trace'      => '',
+            'code'    => $code . " ·",
+            'trace'   => '',
+            'preview' => '',
         ];
 
-        $this->show();
+        static::getPreviewCode($file, $line);
+
+        $this->render();
     }
 
     /**
@@ -115,7 +91,7 @@ class ErrorHandler {
      *        array  $e->getTrace()
      *        string $e->getTrace()[0]['file']     → file exception launcher
      *        int    $e->getTrace()[0]['line']     → line exception launcher
-     *        string $e->getTrace()[0]['function'] → function exception launcher
+     *        string $e->getTrace()[0]['function'] → function exception
      *        string $e->getTrace()[0]['class']    → class exception launcher
      *        string $e->getTrace()[0]['type']     → type exception launcher
      *        array  $e->getTrace()[0]['args']     → args exception launcher
@@ -123,41 +99,33 @@ class ErrorHandler {
      *        Optionally for libraries used in JST PHP Framework:
      *        int    $e->statusCode → HTTP response status code
      */
-    public function prepareException($e) {
+    public function exception($e) {
 
         static::$stack = [
             'type'       => 'Exception',
-            'message'    => (null !== $e->getMessage()) ? $e->getMessage() : '',
-            'file'       => (null !== $e->getFile()) ? $e->getFile() : 0,
-            'line'       => (null !== $e->getLine()) ? $e->getLine() : 0,
-            'code'       => $e->getCode() ? "[" . $e->getCode() . "]" : "",
-            'trace'      => '',
+            'message'    => $e->getMessage(),
+            'file'       => $e->getFile(),
+            'line'       => $e->getLine(),
+            'code'       => $e->getCode() . " ·",
+            'statusCode' => (isset($e->statusCode)) ? $e->statusCode : 0,
+            'trace'      => "\r\n<hr>BACKTRACE:\r\n",
+            'preview'    => "",
         ];
 
-        if (is_array($e->getTrace()) && count($e->getTrace()) > 0) {
+        static::getPreviewCode(static::$stack['file'], static::$stack['line']);
 
-            $tab = "\r\n";
+        $trace = preg_split("/#[\d]/", $e->getTraceAsString());
 
-            foreach ($e->getTrace() as $key => $value) {
-                    
-                $tab .= "· · · · ";
+        unset($trace[0]);
+                                                                                
+        array_pop($trace);
 
-                $statusCode = (isset($e->statusCode)) ? $e->statusCode : 0;
-                
-                static::$stack['trace'] = "\r\n\r\n<hr>" .
-
-                    $tab . " [Trace "     . ($key + 1) . "]"            .
-                    $tab . " FILE: "      . $value['file']              .
-                    $tab . " HTTP CODE: " . $statusCode       .
-                    $tab . " FUNCTION: "  . $value['function']          .
-                    $tab . " CLASS: "     . $value['class']             .
-                    $tab . " ARGS: "      . json_encode($value['args']) .
-                    $tab . " LINE: "      . $value['line']              .
-                    $tab . " TYPE "       . $value['type'] . "\r\n";
-            }
+        foreach ($trace as $key => $value) {
+     
+            static::$stack['trace'] .= "\n" . $key . " ·" . $value;
         }
 
-        $this->show();
+        $this->render();
     }
 
     /**
@@ -204,34 +172,65 @@ class ErrorHandler {
             case E_USER_DEPRECATED:
                 return static::$stack['type'] = 'User Deprecated';   /* 16384 */ 
             default :
-                return static::$stack['type'] = (string) $code;
-
+                return static::$stack['type'] = 'Error';
         }
+    }
 
+    /**
+     * Get preview of the error line.
+     *
+     * @since 1.1.0
+     * 
+     * @param string $file → filepath
+     * @param string $line → error line
+     */
+    protected function getPreviewCode($file, $line) {
+
+        $file = file($file);
+
+        $start = ($line - 5 >= 0) ? $line - 5 : $line - 1; 
+        $end   = ($line - 5 >= 0) ? $line + 4 : $line + 8; 
+
+        for ($i = $start; $i < $end; $i++) { 
+
+            if (!isset($file[$i])) {
+
+                continue;
+            }
+
+            $text = trim($file[$i]);
+
+            if ($i == $line - 1) {
+
+                static::$stack['preview'] .= 
+                    "<span class='jst-line'>" . ($i + 1) . "</span>" . 
+                    "<span class='jst-mark text'>" . $text . "</span><br>";
+
+                continue;
+            }
+
+            static::$stack['preview'] .= 
+                "<span class='jst-line'>" . ($i + 1) .  "</span>" . 
+                "<span class='text'>" . $text . "</span><br>";
+        }
     }
 
     /**
      * Show alert in browser.
      *
      * @since 1.0.0
-     * 
-     * @param string $type → error or exception
      */
-    protected function show() {
-
-        $css = __DIR__ . '/resources/styles.php';
+    protected function render() {
 
         static::$stack['mode'] = defined('HHVM_VERSION') ? 'HHVM' : 'PHP';
 
-        ob_start();
+        if (!static::$styles) {
 
-        if (!isset(static::$stack['css'])) {
+            static::$styles = true;
 
-            static::$stack['css'] = require($css);
+            static::$stack['css'] = require(__DIR__ . '/resources/styles.php');
         }
         
         require(__DIR__ . '/resources/view.php');
-
-        ob_end_flush();
     }
 }
