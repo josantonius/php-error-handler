@@ -10,3 +10,4 @@ docs/*.pyc
 .git*/
 .idea
 .DS_STORE
+resources/
