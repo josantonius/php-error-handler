@@ -5,8 +5,8 @@
  * @author     Josantonius - info@josantonius.com
  * @copyright  Copyright (c) 2016-2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Josantonius/ErrorHandler
- * @since      File available since 1.0.0 - Update: 2017-02-21
+ * @link       https://github.com/Josantonius/PHP-ErrorHandler
+ * @since      1.0.0
  */
 
 namespace Josantonius\ErrorHandler\Tests;
