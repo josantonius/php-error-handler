@@ -2,8 +2,8 @@
 /**
  * PHP library for handling exceptions and errors.
  * 
- * @author     Josantonius - info@josantonius.com
- * @copyright  Copyright (c) 2016-2017
+ * @author     Josantonius - hello@josantonius.com
+ * @copyright  Copyright (c) 2016 - 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link       https://github.com/Josantonius/PHP-ErrorHandler
  * @since      1.0.0
