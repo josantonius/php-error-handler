@@ -26,18 +26,63 @@ class ErrorHandlerTest {
      *
      * @since 1.1.3
      */
-    public function testSetCustomMethod() {
+    public function testSetCustomMethod1() {
+
+        $class = $this;
+
+        $method = '_customMethodResponse';
+
+        ErrorHandler::SetCustomMethod($class, $method);
+
+        throw new \Exception("View from custom method");
+    }
+
+    /**
+     * Set custom method.
+     *
+     * @since 1.1.3
+     */
+    public function testSetCustomMethod2() {
 
         $class = $this;
 
         $method = '_customMethodResponse';
 
         /**
+         * Optional. 0 by default.
+         *
          * Number of times to repeat this method in case of multiple errors.
          */
         $times = 0; 
 
-        ErrorHandler::SetCustomMethod($class, $method, $times);
+        /**
+         * Optional. false by default.
+         *
+         * Display also the default view.
+         */
+        $default = false; 
+
+        ErrorHandler::SetCustomMethod($class, $method, $times, $default);
+
+        throw new \Exception("View from custom method");
+    }
+
+    /**
+     * Set custom method and display also the default view.
+     *
+     * @since 1.1.3
+     */
+    public function testSetCustomMethod3() {
+
+        $class = $this;
+
+        $method = '_customMethodResponse';
+
+        $times = 3; 
+
+        $default = true; 
+
+        ErrorHandler::SetCustomMethod($class, $method, $times, $default);
 
         throw new \Exception("View from custom method");
     }

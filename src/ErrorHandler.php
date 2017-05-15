@@ -181,7 +181,7 @@ class ErrorHandler {
      * @param string $trace → exception/error trace
      * @param string $http  → HTTP response status code
      */
-    protected function setParams($type,$code,$msg,$file,$line,$trace,$http) {
+    protected function setParams($type, $code, $msg, $file, $line, $trace, $http) {
 
         self::$stack = [
             'type'      => $type,
@@ -238,17 +238,14 @@ class ErrorHandler {
      *
      * @since 1.1.3
      * 
-     * @param string|object $class
-     * @param string        $method
-     * @param int           $repeat
-     *
-     * @return true
+     * @param string|object $class   → class name or class object
+     * @param string        $method  → method name
+     * @param int           $repeat  → number of times to repeat method
+     * @param boolean       $default → show default view
      */
-    public static function setCustomMethod($class, $method, $repeat = 0) {
+    public static function setCustomMethod($class, $method, $repeat = 0, $default = false) {
 
         self::$customMethods[] = [$class, $method, $repeat];
-
-        return true;
     }
 
     /**
@@ -257,6 +254,8 @@ class ErrorHandler {
      * @since 1.1.3
      */
     protected function getCustomMethods() {
+
+        $showDefaultView = true;
 
         $params = [self::$stack];
 
@@ -274,7 +273,14 @@ class ErrorHandler {
 
             $method = isset($custom[1]) ? $custom[1] : false;
 
-            $repeat = isset($custom[2]) ? $custom[2] : 0;
+            $repeat = $custom[2];
+
+            $showDefault = $custom[3];
+
+            if ($showDefault === false) {
+
+                $showDefaultView = false;
+            }
 
             if ($repeat === 0) {
 
@@ -287,12 +293,16 @@ class ErrorHandler {
 
             call_user_func_array([$class, $method], $params);
         }
+
+        return $showDefaultView;
     }
 
     /**
      * Renderization.
      *
      * @since 1.0.0
+     *
+     * @return 
      */
     protected function render() {
 
@@ -300,7 +310,10 @@ class ErrorHandler {
 
         if (self::$customMethods) {
 
-            return $this->getCustomMethods();
+            if ($this->getCustomMethods() === false) {
+                
+                return;
+            }
         }
 
         $this->getPreviewCode();

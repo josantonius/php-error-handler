@@ -116,7 +116,9 @@ use Josantonius\ErrorHandler\Tests\ErrorHandlerTest;
 Available test methods in this library:
 
 ```php
-ErrorHandlerTest->testSetCustomMethod();
+ErrorHandlerTest->testSetCustomMethod1();
+ErrorHandlerTest->testSetCustomMethod2();
+ErrorHandlerTest->testSetCustomMethod3();
 ErrorHandlerTest->testSProvokeException();
 ErrorHandlerTest->testSProvokeWarning();
 ErrorHandlerTest->testSProvokeNotice();
