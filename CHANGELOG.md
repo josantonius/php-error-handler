@@ -1,7 +1,7 @@
 # CHANGELOG
 
 ## 1.1.3 - 2017-05-15
-* Some files were excluded from download and comments and readme files were updated.
+* You can now add custom methods to run instead of displaying the default view.
 
 * Added `Josantonius\ErrorHandler\ErrorHandler->setParams()` method.
 * Added `Josantonius\ErrorHandler\ErrorHandler::setCustomMethod()` method.
