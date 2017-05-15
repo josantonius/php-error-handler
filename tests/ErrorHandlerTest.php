@@ -11,7 +11,8 @@
 
 namespace Josantonius\ErrorHandler\Tests;
 
-use Josantonius\ErrorHandler\ErrorHandler;
+use Josantonius\ErrorHandler\ErrorHandler,
+    Josantonius\ErrorHandler\Exception\ErrorHandlerException;
 
 /**
  * Tests class for ErrorHandler library.
@@ -19,6 +20,42 @@ use Josantonius\ErrorHandler\ErrorHandler;
  * @since 1.0.0
  */
 class ErrorHandlerTest { 
+
+    /**
+     * Set custom method.
+     *
+     * @since 1.1.3
+     */
+    public function testSetCustomMethod() {
+
+        $class = $this;
+
+        $method = '_customMethodResponse';
+
+        /**
+         * Number of times to repeat this method in case of multiple errors.
+         */
+        $times = 0; 
+
+        ErrorHandler::SetCustomMethod($class, $method, $times);
+
+        throw new \Exception("View from custom method");
+    }
+
+    /**
+     * Set custom method.
+     *
+     * @since 1.1.3
+     */
+    public function _customMethodResponse($params) {
+
+        echo "Custom method: <br>";
+
+        foreach ($params as $key => $value) {
+            
+            echo  "<br>" . $key . " → " . $value;
+        }
+    }
 
     /**
      * Provoke exception.

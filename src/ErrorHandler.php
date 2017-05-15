@@ -27,7 +27,7 @@ class ErrorHandler {
      * 
      * @var array
      */
-    protected static $stack;
+    public static $stack;
 
     /**
      * Style load validator.
@@ -36,7 +36,16 @@ class ErrorHandler {
      * 
      * @var bool
      */
-    protected static $styles = false;
+    public static $styles = false;
+
+    /**
+     * Custom methods.
+     *
+     * @since 1.1.3
+     * 
+     * @var bool
+     */
+    public static $customMethods = false;
 
     /**
      * Catch errors and exceptions and execute the method.
@@ -62,68 +71,9 @@ class ErrorHandler {
      */
     public function error($code, $msg, $file, $line) {
 
-        static::$stack = [
-            'type'    => $this->getErrorType($code),
-            'message' => $msg,
-            'file'    => $file,
-            'line'    => $line,
-            'code'    => $code . " ·",
-            'trace'   => '',
-            'preview' => '',
-        ];
+        $type = $this->getErrorType($code);
 
-        static::getPreviewCode($file, $line);
-
-        $this->render();
-    }
-
-    /**
-     * Handle exceptions catch.
-     *
-     * @since 1.0.0
-     * 
-     * @param object $e
-     *        string $e->getMessage() → exception message
-     *        int    $e->getCode()    → exception code
-     *        string $e->getFile()    → file where the exception is launched
-     *        int    $e->getLine()    → line where the exception is launched
-     *        
-     *        array  $e->getTrace()
-     *        string $e->getTrace()[0]['file']     → file exception launcher
-     *        int    $e->getTrace()[0]['line']     → line exception launcher
-     *        string $e->getTrace()[0]['function'] → function exception
-     *        string $e->getTrace()[0]['class']    → class exception launcher
-     *        string $e->getTrace()[0]['type']     → type exception launcher
-     *        array  $e->getTrace()[0]['args']     → args exception launcher
-     *
-     *        Optionally for libraries used in Eliasis PHP Framework:
-     *        int    $e->statusCode → HTTP response status code
-     */
-    public function exception($e) {
-
-        static::$stack = [
-            'type'       => 'Exception',
-            'message'    => $e->getMessage(),
-            'file'       => $e->getFile(),
-            'line'       => $e->getLine(),
-            'code'       => $e->getCode() . " ·",
-            'statusCode' => (isset($e->statusCode)) ? $e->statusCode : 0,
-            'trace'      => "\r\n<hr>BACKTRACE:\r\n",
-            'preview'    => "",
-        ];
-
-        static::getPreviewCode(static::$stack['file'], static::$stack['line']);
-
-        $trace = preg_split("/#[\d]/", $e->getTraceAsString());
-
-        unset($trace[0]);
-                                                                                
-        array_pop($trace);
-
-        foreach ($trace as $key => $value) {
-     
-            static::$stack['trace'] .= "\n" . $key . " ·" . $value;
-        }
+        $this->setParams($type, $code, $msg, $file, $line, '', 0);
 
         $this->render();
     }
@@ -142,51 +92,119 @@ class ErrorHandler {
         switch($code) {
 
             case E_ERROR:                   
-                return static::$stack['type'] = 'Error';             /* 1 */
+                return self::$stack['type'] = 'Error';             # 1
             case E_WARNING:
-                return static::$stack['type'] = 'Warning';           /* 2 */ 
+                return self::$stack['type'] = 'Warning';           # 2 
             case E_PARSE:
-                return static::$stack['type'] = 'Parse';             /* 4 */ 
+                return self::$stack['type'] = 'Parse';             # 4 
             case E_NOTICE:
-                return static::$stack['type'] = 'Notice';            /* 8 */ 
+                return self::$stack['type'] = 'Notice';            # 8 
             case E_CORE_ERROR:
-                return static::$stack['type'] = 'Core-Error';        /* 16 */ 
+                return self::$stack['type'] = 'Core-Error';        # 16 
             case E_CORE_WARNING:
-                return static::$stack['type'] = 'Core Warning';      /* 32 */ 
+                return self::$stack['type'] = 'Core Warning';      # 32 
             case E_COMPILE_ERROR:
-                return static::$stack['type'] = 'Compile Error';     /* 64 */ 
+                return self::$stack['type'] = 'Compile Error';     # 64 
             case E_COMPILE_WARNING:
-                return static::$stack['type'] = 'Compile Warning';   /* 128 */ 
+                return self::$stack['type'] = 'Compile Warning';   # 128 
             case E_USER_ERROR:
-                return static::$stack['type'] = 'User Error';        /* 256 */ 
+                return self::$stack['type'] = 'User Error';        # 256 
             case E_USER_WARNING:
-                return static::$stack['type'] = 'User Warning';      /* 512 */ 
+                return self::$stack['type'] = 'User Warning';      # 512 
             case E_USER_NOTICE:
-                return static::$stack['type'] = 'User Notice';       /* 1024*/ 
+                return self::$stack['type'] = 'User Notice';       # 1024 
             case E_STRICT:             
-                return static::$stack['type'] = 'Strict';            /* 2048*/ 
+                return self::$stack['type'] = 'Strict';            # 2048 
             case E_RECOVERABLE_ERROR:
-                return static::$stack['type'] = 'Recoverable Error'; /* 4096*/ 
+                return self::$stack['type'] = 'Recoverable Error'; # 4096 
             case E_DEPRECATED:
-                return static::$stack['type'] = 'Deprecated';        /* 8192 */ 
+                return self::$stack['type'] = 'Deprecated';        # 8192 
             case E_USER_DEPRECATED:
-                return static::$stack['type'] = 'User Deprecated';   /* 16384 */ 
+                return self::$stack['type'] = 'User Deprecated';   # 16384 
             default :
-                return static::$stack['type'] = 'Error';
+                return self::$stack['type'] = 'Error';
         }
+    }
+
+    /**
+     * Handle exceptions catch.
+     *
+     * @since 1.0.0
+     *
+     * Optionally for libraries used in Eliasis PHP Framework: $e->statusCode
+     *
+     * @param object $e
+     *        string $e->getMessage()       → exception message
+     *        int    $e->getCode()          → exception code
+     *        string $e->getFile()          → file
+     *        int    $e->getLine()          → line
+     *        string $e->getTraceAsString() → trace as string
+     *        int    $e->statusCode         → HTTP response status code
+     */
+    public function exception($e) {
+
+        $trace = "\r\n<hr>BACKTRACE:\r\n";
+
+        $traceString = preg_split("/#[\d]/", $e->getTraceAsString());
+
+        unset($traceString[0]);
+                                                                                
+        array_pop($traceString);
+
+        foreach ($traceString as $key => $value) {
+     
+            $trace .= "\n" . $key . " ·" . $value;
+        }
+
+        $this->setParams(
+            'Exception',
+            $e->getCode(),
+            $e->getMessage(), 
+            $e->getFile(),
+            $e->getLine(),
+            $trace,
+            (isset($e->statusCode)) ? $e->statusCode : 0
+        );
+
+        $this->render();
+    }
+
+    /**
+     * Handle error catch.
+     *
+     * @since 1.1.3
+     * 
+     * @param int    $code  → exception/error code
+     * @param int    $msg   → exception/error message
+     * @param int    $file  → exception/error file
+     * @param int    $line  → exception/error line
+     * @param string $trace → exception/error trace
+     * @param string $http  → HTTP response status code
+     */
+    protected function setParams($type,$code,$msg,$file,$line,$trace,$http) {
+
+        self::$stack = [
+            'type'      => $type,
+            'message'   => $msg,
+            'file'      => $file,
+            'line'      => $line,
+            'code'      => $code,
+            'http-code' => ($http === 0) ? http_response_code() : $http,
+            'trace'     => $trace,
+            'preview'   => '',
+        ];
     }
 
     /**
      * Get preview of the error line.
      *
      * @since 1.1.0
-     * 
-     * @param string $file → filepath
-     * @param string $line → error line
      */
-    protected function getPreviewCode($file, $line) {
+    protected function getPreviewCode() {
 
-        $file = file($file);
+        $file = file(self::$stack['file']);
+
+        $line = self::$stack['line'];
 
         $start = ($line - 5 >= 0) ? $line - 5 : $line - 1; 
         $end   = ($line - 5 >= 0) ? $line + 4 : $line + 8; 
@@ -202,33 +220,98 @@ class ErrorHandler {
 
             if ($i == $line - 1) {
 
-                static::$stack['preview'] .= 
-                    "<span class='jst-line'>" . ($i + 1) . "</span>" . 
+                self::$stack['preview'] .= 
+                    "<span class='jst-line'>" . ($i + 1) .  "</span>" . 
                     "<span class='jst-mark text'>" . $text . "</span><br>";
 
                 continue;
             }
 
-            static::$stack['preview'] .= 
-                "<span class='jst-line'>" . ($i + 1) .  "</span>" . 
+            self::$stack['preview'] .= 
+                "<span class='jst-line'>" . ($i + 1) . "</span>" . 
                 "<span class='text'>" . $text . "</span><br>";
         }
     }
 
     /**
-     * Show alert in browser.
+     * Set customs methods to renderizate.
+     *
+     * @since 1.1.3
+     * 
+     * @param string|object $class
+     * @param string        $method
+     * @param int           $repeat
+     *
+     * @return true
+     */
+    public static function setCustomMethod($class, $method, $repeat = 0) {
+
+        self::$customMethods[] = [$class, $method, $repeat];
+
+        return true;
+    }
+
+    /**
+     * Get customs methods to renderizate.
+     *
+     * @since 1.1.3
+     */
+    protected function getCustomMethods() {
+
+        $params = [self::$stack];
+
+        unset($params[0]['trace'], $params[0]['preview']);
+
+        $count = count(self::$customMethods);
+
+        $customMethods = self::$customMethods;
+
+        for ($i=0; $i < $count; $i++) {
+
+            $custom = $customMethods[$i];
+
+            $class  = isset($custom[0]) ? $custom[0] : false;
+
+            $method = isset($custom[1]) ? $custom[1] : false;
+
+            $repeat = isset($custom[2]) ? $custom[2] : 0;
+
+            if ($repeat === 0) {
+
+                unset(self::$customMethods[$i]);
+            
+            } else {
+
+                self::$customMethods[$i] = [$class, $method, $repeat--];
+            }
+
+            call_user_func_array([$class, $method], $params);
+        }
+    }
+
+    /**
+     * Renderization.
      *
      * @since 1.0.0
      */
     protected function render() {
 
-        static::$stack['mode'] = defined('HHVM_VERSION') ? 'HHVM' : 'PHP';
+        self::$stack['mode'] = defined('HHVM_VERSION') ? 'HHVM' : 'PHP';
 
-        if (!static::$styles) {
+        if (self::$customMethods) {
 
-            static::$styles = true;
+            return $this->getCustomMethods();
+        }
 
-            static::$stack['css'] = require(__DIR__ . '/resources/styles.php');
+        $this->getPreviewCode();
+        
+        if (!self::$styles) {
+
+            self::$styles = true;
+
+            $file = __DIR__.'/resources/styles.php';
+
+            self::$stack['css'] = require($file);
         }
         
         require(__DIR__ . '/resources/view.php');

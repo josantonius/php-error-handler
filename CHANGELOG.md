@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.1.3 - 2017-05-15
+* Some files were excluded from download and comments and readme files were updated.
+
+* Added `Josantonius\ErrorHandler\ErrorHandler->setParams()` method.
+* Added `Josantonius\ErrorHandler\ErrorHandler::setCustomMethod()` method.
+* Added `Josantonius\ErrorHandler\ErrorHandler->getCustomMethods()` method.
+
+* Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSetCustomMethod()` method.
+* Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->_customMethodResponse()` method.
+
 ## 1.1.2 - 2017-03-18
 * Some files were excluded from download and comments and readme files were updated.
 

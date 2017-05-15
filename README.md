@@ -12,10 +12,10 @@ PHP library for handling exceptions and errors.
 - [Requirements](#requirements)
 - [Quick Start and Examples](#quick-start-and-examples)
 - [Available Methods](#available-methods)
-- [Images](#images)
 - [Usage](#usage)
 - [Tests](#tests)
 - [Exception Handler](#exception-handler)
+- [Images](#images)
 - [Contribute](#contribute)
 - [Repository](#repository)
 - [Licensing](#licensing)
@@ -57,16 +57,8 @@ use Josantonius\ErrorHandler\ErrorHandler;
 Available methods in this library:
 
 ```php
-ErrorHandler->error();
-ErrorHandler->exception();
+ErrorHandler::setCustomMethod();
 ```
-
-### Images
-
-![image](resources/images/exception.png)
-![image](resources/images/error.png)
-![image](resources/images/notice.png)
-![image](resources/images/warning.png)
 
 ### Usage
 
@@ -78,9 +70,34 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Josantonius\ErrorHandler\ErrorHandler;
 
-/* It is recommended to instantiate the class in a base file as the index.php */
+/** 
+ * It is recommended to instantiate the class in a base file as the index.php */
 
 new ErrorHandler;
+
+/**
+ * Optionally you can enter one or more methods to be executed instead the 
+ * default view. The indicated method will receive an array with the
+ * following parameters:
+ *
+ * [
+ * 	'type'      => 'Error|Exception',
+ *	'message'   => 'exception|error message',
+ *	'file'      => 'exception|error file',
+ *	'line '     => 'exception|error line',
+ *	'code'      => 'exception|error code',
+ *	'http-code' => 'HTTP response status code',
+ *	'mode'      => 'PHP|HHVM',
+ * ];
+ * 
+ */
+$class = $this;
+
+$method = 'customMethodResponse';
+
+$times = 0; // Times number to repeat this method in case of multiple errors
+
+ErrorHandler::SetCustomMethod($class, $method, $times);
 ```
 
 ### Tests 
@@ -99,6 +116,7 @@ use Josantonius\ErrorHandler\Tests\ErrorHandlerTest;
 Available test methods in this library:
 
 ```php
+ErrorHandlerTest->testSetCustomMethod();
 ErrorHandlerTest->testSProvokeException();
 ErrorHandlerTest->testSProvokeWarning();
 ErrorHandlerTest->testSProvokeNotice();
@@ -110,6 +128,14 @@ ErrorHandlerTest->testSProvokeUserWarning();
 ### Exception Handler
 
 This library uses [exception handler](src/Exception) that you can customize.
+
+### Images
+
+![image](resources/images/exception.png)
+![image](resources/images/error.png)
+![image](resources/images/notice.png)
+![image](resources/images/warning.png)
+
 ### Contribute
 1. Check for open issues or open a new issue to start a discussion around a bug or feature.
 1. Fork the repository on GitHub to start making your changes.

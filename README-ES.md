@@ -12,10 +12,10 @@ Librería PHP para manejar excepciones y errores.
 - [Requisitos](#requisitos)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
 - [Métodos disponibles](#métodos-disponibles)
-- [Imágenes](#imagenes)
 - [Uso](#uso)
 - [Tests](#tests)
 - [Manejador de excepciones](#manejador-de-excepciones)
+- [Imágenes](#imagenes)
 - [Contribuir](#contribuir)
 - [Repositorio](#repositorio)
 - [Licencia](#licencia)
@@ -57,19 +57,9 @@ use Josantonius\ErrorHandler\ErrorHandler;
 Métodos disponibles en esta librería:
 
 ```php
-ErrorHandler->error();
-ErrorHandler->exception();
-ErrorHandler->getErrorType();
-ErrorHandler->render();
-
-### Imágenes
-
-![image](resources/images/exception.png)
-![image](resources/images/error.png)
-![image](resources/images/notice.png)
-![image](resources/images/warning.png)
-
+ErrorHandler::setCustomMethod();
 ```
+
 ### Uso
 
 Ejemplo de uso para esta librería:
@@ -83,6 +73,30 @@ use Josantonius\ErrorHandler\ErrorHandler;
 /* Se recomienda intanciar la clase en un archivo base como el index.php */
 
 new ErrorHandler;
+
+/**
+ * Opcionalmente puedes introducir uno o más métodos para ejecutar en lugar de
+ * la vista predeterminada. El método indicado recibirá un array con los
+ * siguientes parámetros:
+ *
+ * [
+ * 	'type'      => 'Error|Exception',
+ *	'message'   => 'exception|error mensaje',
+ *	'file'      => 'exception|error archivo',
+ *	'line '     => 'exception|error línea',
+ *	'code'      => 'exception|error código de error',
+ *	'http-code' => 'Código de estado de respuesta HTTP',
+ *	'mode'      => 'PHP|HHVM',
+ * ];
+ * 
+ */
+$class = $this;
+
+$method = 'customMethodResponse';
+
+$times = 0; // Número de veces para repetir este método en caso de errores múltiples
+
+ErrorHandler::SetCustomMethod($class, $method, $times);
 ```
 
 ### Tests 
@@ -111,6 +125,14 @@ ErrorHandlerTest->testSProvokeUserWarning();
 ### Manejador de excepciones
 
 Esta librería utiliza [control de excepciones](src/Exception) que puedes personalizar a tu gusto.
+
+### Imágenes
+
+![image](resources/images/exception.png)
+![image](resources/images/error.png)
+![image](resources/images/notice.png)
+![image](resources/images/warning.png)
+
 ### Contribuir
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
 1. Bifurca la rama del repositorio en GitHub para iniciar la operación de ajuste.
