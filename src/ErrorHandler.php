@@ -11,8 +11,6 @@
  
 namespace Josantonius\ErrorHandler;
 
-# use Josantonius\ErrorHandler\Exception\ErrorHandlerException;
-
 /**
  * Handling exceptions and errors.
  *

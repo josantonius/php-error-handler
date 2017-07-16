@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.4 - 2017-07-16
+* Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException` class.
+* Deleted `Josantonius\ErrorHandler\Exception\Exceptions` abstract class.
+* Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException->__construct()` method.
+
 ## 1.1.3 - 2017-05-15
 * You can now add custom methods to run instead of displaying the default view.
 

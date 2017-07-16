@@ -14,12 +14,21 @@ Librería PHP para manejar excepciones y errores.
 - [Métodos disponibles](#métodos-disponibles)
 - [Uso](#uso)
 - [Tests](#tests)
-- [Manejador de excepciones](#manejador-de-excepciones)
 - [Imágenes](#imagenes)
 - [Contribuir](#contribuir)
 - [Repositorio](#repositorio)
 - [Licencia](#licencia)
 - [Copyright](#copyright)
+
+---
+
+<p align="center"><strong>Echa un vistazo al código</strong></p>
+
+<p align="center">
+  <a href="" title="Echa un vistazo al código">
+  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
+  </a>
+</p>
 
 ---
 
@@ -41,7 +50,7 @@ También puedes clonar el repositorio completo con Git:
 
 ### Requisitos
 
-Esta ĺibrería es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
+Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
 
 ### Cómo empezar y ejemplos
 
@@ -124,10 +133,6 @@ ErrorHandlerTest->testSProvokeUserError();
 ErrorHandlerTest->testSProvokeUserNotice();
 ErrorHandlerTest->testSProvokeUserWarning();
 ```
-
-### Manejador de excepciones
-
-Esta librería utiliza [control de excepciones](src/Exception) que puedes personalizar a tu gusto.
 
 ### Imágenes
 

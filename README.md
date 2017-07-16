@@ -14,12 +14,21 @@ PHP library for handling exceptions and errors.
 - [Available Methods](#available-methods)
 - [Usage](#usage)
 - [Tests](#tests)
-- [Exception Handler](#exception-handler)
 - [Images](#images)
 - [Contribute](#contribute)
 - [Repository](#repository)
-- [Licensing](#licensing)
+- [License](#license)
 - [Copyright](#copyright)
+
+---
+
+<p align="center"><strong>Take a look at the code</strong></p>
+
+<p align="center">
+  <a href="" title="Take a look at the code">
+  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
+  </a>
+</p>
 
 ---
 
@@ -127,10 +136,6 @@ ErrorHandlerTest->testSProvokeUserNotice();
 ErrorHandlerTest->testSProvokeUserWarning();
 ```
 
-### Exception Handler
-
-This library uses [exception handler](src/Exception) that you can customize.
-
 ### Images
 
 ![image](resources/images/exception.png)
@@ -151,7 +156,7 @@ This is intended for large and long-lived objects.
 
 All files in this repository were created and uploaded automatically with [Reposgit Creator](https://github.com/Josantonius/BASH-Reposgit).
 
-### Licensing
+### License
 
 This project is licensed under **MIT license**. See the [LICENSE](LICENSE) file for more info.
 
