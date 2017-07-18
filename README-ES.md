@@ -4,7 +4,7 @@
 
 [English version](README.md)
 
-Librería PHP para manejar excepciones y errores.
+Biblioteca PHP para manejar excepciones y errores.
 
 ---
 
@@ -25,7 +25,7 @@ Librería PHP para manejar excepciones y errores.
 <p align="center"><strong>Echa un vistazo al código</strong></p>
 
 <p align="center">
-  <a href="" title="Echa un vistazo al código">
+  <a href="https://youtu.be/eCXyajDhXOc" title="Echa un vistazo al código">
   	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
   </a>
 </p>
@@ -54,7 +54,7 @@ Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatib
 
 ### Cómo empezar y ejemplos
 
-Para utilizar esta librería, simplemente:
+Para utilizar esta biblioteca, simplemente:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
@@ -63,7 +63,7 @@ use Josantonius\ErrorHandler\ErrorHandler;
 ```
 ### Métodos disponibles
 
-Métodos disponibles en esta librería:
+Métodos disponibles en esta biblioteca:
 
 ```php
 ErrorHandler::setCustomMethod();
@@ -71,7 +71,7 @@ ErrorHandler::setCustomMethod();
 
 ### Uso
 
-Ejemplo de uso para esta librería:
+Ejemplo de uso para esta biblioteca:
 
 ```php
 <?php
@@ -120,7 +120,7 @@ $loader->addPsr4('Josantonius\\ErrorHandler\\Tests\\', __DIR__ . '/vendor/josant
 
 use Josantonius\ErrorHandler\Tests\ErrorHandlerTest;
 ```
-Métodos de prueba disponibles en esta librería:
+Métodos de prueba disponibles en esta biblioteca:
 
 ```php
 ErrorHandlerTest->testSetCustomMethod1();
