@@ -1,6 +1,6 @@
 # PHP ErrorHandler library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/errorhandler/v/stable)](https://packagist.org/packages/josantonius/errorhandler) [![Total Downloads](https://poser.pugx.org/josantonius/errorhandler/downloads)](https://packagist.org/packages/josantonius/errorhandler) [![Latest Unstable Version](https://poser.pugx.org/josantonius/errorhandler/v/unstable)](https://packagist.org/packages/josantonius/errorhandler) [![License](https://poser.pugx.org/josantonius/errorhandler/license)](https://packagist.org/packages/josantonius/errorhandler)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/errorhandler/v/stable)](https://packagist.org/packages/josantonius/errorhandler) [![Total Downloads](https://poser.pugx.org/josantonius/errorhandler/downloads)](https://packagist.org/packages/josantonius/errorhandler) [![Latest Unstable Version](https://poser.pugx.org/josantonius/errorhandler/v/unstable)](https://packagist.org/packages/josantonius/errorhandler) [![License](https://poser.pugx.org/josantonius/errorhandler/license)](https://packagist.org/packages/josantonius/errorhandler) [![Travis](https://travis-ci.org/Josantonius/PHP-ErrorHandler.svg)](https://github.com/Josantonius/PHP-ErrorHandler)
 
 [Versión en español](README-ES.md)
 
@@ -19,16 +19,6 @@ PHP library for handling exceptions and errors.
 - [Repository](#repository)
 - [License](#license)
 - [Copyright](#copyright)
-
----
-
-<p align="center"><strong>Take a look at the code</strong></p>
-
-<p align="center">
-  <a href="https://youtu.be/eCXyajDhXOc" title="Take a look at the code">
-  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
-  </a>
-</p>
 
 ---
 
@@ -111,30 +101,13 @@ ErrorHandler::SetCustomMethod($class, $method, $times);
 
 ### Tests 
 
-To use the [test](tests) class, simply:
+To run [tests](tests/ErrorHandler) simply:
 
-```php
-<?php
-$loader = require __DIR__ . '/vendor/autoload.php';
+    $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
+    
+    $ cd PHP-ErrorHandler
 
-$loader->addPsr4('Josantonius\\ErrorHandler\\Tests\\', __DIR__ . '/vendor/josantonius/errorhandler/tests');
-
-use Josantonius\ErrorHandler\Tests\ErrorHandlerTest;
-
-```
-Available test methods in this library:
-
-```php
-ErrorHandlerTest->testSetCustomMethod1();
-ErrorHandlerTest->testSetCustomMethod2();
-ErrorHandlerTest->testSetCustomMethod3();
-ErrorHandlerTest->testSProvokeException();
-ErrorHandlerTest->testSProvokeWarning();
-ErrorHandlerTest->testSProvokeNotice();
-ErrorHandlerTest->testSProvokeUserError();
-ErrorHandlerTest->testSProvokeUserNotice();
-ErrorHandlerTest->testSProvokeUserWarning();
-```
+    $ phpunit
 
 ### Images
 
