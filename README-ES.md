@@ -100,7 +100,7 @@ ErrorHandler::SetCustomMethod($class, $method, $times);
 
 ### Tests 
 
-Para ejecutar las [pruebas](tests/ErrorHandler) simplemente:
+Para ejecutar las [pruebas](tests/ErrorHandler/test) simplemente:
 
     $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
     
