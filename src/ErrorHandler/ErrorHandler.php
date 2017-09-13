@@ -334,12 +334,12 @@ class ErrorHandler {
 
             self::$styles = true;
 
-            $styles = __DIR__.'/../../public/css/styles.php';
+            $styles = __DIR__.'/../public/css/styles.php';
 
             self::$stack['css'] = require($styles);
         }
         
-        require(__DIR__ . '/../../public/template/view.php');
+        require(__DIR__ . '/../public/template/view.php');
 
         return true;
     }
