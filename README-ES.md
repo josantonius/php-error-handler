@@ -152,7 +152,7 @@ Ejecutar todas las pruebas anteriores:
 ### ☑ Tareas pendientes
 
 - [x] Completar tests
-- [ ] Mejorar la documentación
+- [x] Mejorar la documentación
 
 ### Contribuir
 
