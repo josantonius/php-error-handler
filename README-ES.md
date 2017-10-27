@@ -56,7 +56,7 @@ Métodos disponibles en esta biblioteca:
 `Set customs methods to renderizate:`
 
 ```php
-setCustomMethod($class, $method, $repeat, $default);
+ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
 ```
 
 | Atributo | Descripción | Tipo | Requerido | Predeterminado
