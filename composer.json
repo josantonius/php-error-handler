@@ -40,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Josantonius\\ErrorHandler\\": "src/ErrorHandler/"
+            "Josantonius\\ErrorHandler\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Josantonius\\DataType\\": "tests/"
+            "Josantonius\\ErrorHandler\\": "tests/"
         }
     },
     "extra": {

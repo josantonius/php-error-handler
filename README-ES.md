@@ -1,6 +1,6 @@
 # PHP ErrorHandler library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/errorhandler/v/stable)](https://packagist.org/packages/josantonius/errorhandler) [![Total Downloads](https://poser.pugx.org/josantonius/errorhandler/downloads)](https://packagist.org/packages/josantonius/errorhandler) [![Latest Unstable Version](https://poser.pugx.org/josantonius/errorhandler/v/unstable)](https://packagist.org/packages/josantonius/errorhandler) [![License](https://poser.pugx.org/josantonius/errorhandler/license)](https://packagist.org/packages/josantonius/errorhandler) [![Travis](https://travis-ci.org/Josantonius/PHP-ErrorHandler.svg)](https://travis-ci.org/Josantonius/PHP-ErrorHandler)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/ErrorHandler/v/stable)](https://packagist.org/packages/josantonius/ErrorHandler) [![Latest Unstable Version](https://poser.pugx.org/josantonius/ErrorHandler/v/unstable)](https://packagist.org/packages/josantonius/ErrorHandler) [![License](https://poser.pugx.org/josantonius/ErrorHandler/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe730d61628249d280ecfb380a1ee3b8)](https://www.codacy.com/app/Josantonius/PHP-ErrorHandler?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/PHP-ErrorHandler&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/ErrorHandler/downloads)](https://packagist.org/packages/josantonius/ErrorHandler) [![Travis](https://travis-ci.org/Josantonius/PHP-ErrorHandler.svg)](https://travis-ci.org/Josantonius/PHP-ErrorHandler) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![CodeCov](https://codecov.io/gh/Josantonius/PHP-ErrorHandler/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/PHP-ErrorHandler)
 
 [English version](README.md)
 
@@ -23,27 +23,52 @@ Biblioteca PHP para manejar excepciones y errores.
 
 ---
 
+### Requisitos
+
+Esta clase es soportada por versiones de `PHP 5.6` o superiores y es compatible con versiones de `HHVM 3.0` o superiores.
+
 ### Instalación 
 
-La mejor forma de instalar esta extensión es a través de [composer](http://getcomposer.org/download/).
+La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
 
-Para instalar PHP ErrorHandler library, simplemente escribe:
+Para instalar `PHP ErrorHandler library`, simplemente escribe:
 
     $ composer require Josantonius/ErrorHandler
 
-El comando anterior sólo instalará los archivos necesarios, si prefieres descargar todo el código fuente (incluyendo tests, directorio vendor, excepciones no utilizadas, documentos...) puedes utilizar:
+El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
     $ composer require Josantonius/ErrorHandler --prefer-source
 
-También puedes clonar el repositorio completo con Git:
+También puedes **clonar el repositorio** completo con Git:
 
-	$ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
+  $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
 
-### Requisitos
+O **instalarlo manualmente**:
 
-Esta biblioteca es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
+[Descargar ErrorHandler.php](https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php):
 
-### Cómo empezar y ejemplos
+    $ wget https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php
+
+### Métodos disponibles
+
+Métodos disponibles en esta biblioteca:
+
+`Set customs methods to renderizate:`
+
+```php
+setCustomMethod($class, $method, $repeat, $default);
+```
+
+| Atributo | Descripción | Tipo | Requerido | Predeterminado
+| --- | --- | --- | --- | --- |
+| $class | Nombre de la clase u objeto. | callable | Yes | |
+| $method | Nombre del método. | string | Yes | |
+| $repeat | Número de veces que repetir el método en caso de múltiples errores. | int | No | 0 |
+| $default | Mostrar vista por defecto. | boolean | No | false |
+
+**# Return** (void)
+
+### Cómo empezar
 
 Para utilizar esta biblioteca, simplemente:
 
@@ -52,12 +77,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Josantonius\ErrorHandler\ErrorHandler;
 ```
-### Métodos disponibles
 
-Métodos disponibles en esta biblioteca:
+Si la instalaste `manualmente`, utiliza:
 
 ```php
-ErrorHandler::setCustomMethod();
+require_once __DIR__ . '/ErrorHandler.php';
+
+use Josantonius\ErrorHandler\ErrorHandler;
 ```
 
 ### Uso
@@ -65,11 +91,6 @@ ErrorHandler::setCustomMethod();
 Ejemplo de uso para esta biblioteca:
 
 ```php
-<?php
-require __DIR__ . '/vendor/autoload.php';
-
-use Josantonius\ErrorHandler\ErrorHandler;
-
 /* Se recomienda intanciar la clase en un archivo base como el index.php */
 
 new ErrorHandler;
@@ -90,24 +111,36 @@ new ErrorHandler;
  * ];
  * 
  */
-$class = $this;
 
-$method = 'customMethodResponse';
+$class   = $this;
+$method  = 'customMethodResponse';
+$times   = 0;
+$default = true;
 
-$times = 0; // Número de veces para repetir este método en caso de errores múltiples
-
-ErrorHandler::SetCustomMethod($class, $method, $times);
+ErrorHandler::SetCustomMethod($class, $method, $times, $default);
 ```
 
 ### Tests 
 
-Para ejecutar las [pruebas](tests/ErrorHandler/Test) simplemente:
+Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
     $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
     
     $ cd PHP-ErrorHandler
 
-    $ phpunit
+    $ composer install
+
+Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
+
+    $ composer phpunit
+
+Ejecutar pruebas de estándares de código [PSR2](http://www.php-fig.org/psr/psr-2/) con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
+
+    $ composer phpcs
+
+Ejecutar todas las pruebas anteriores:
+
+    $ composer tests
 
 ### Imágenes
 
