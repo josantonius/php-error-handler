@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 1.1.6 - 2017-10-27
+
+* Implemented `PSR-4 autoloader standard` from all library files.
+
+* Implemented `PSR-2 coding standard` from all library PHP files.
+
+* Implemented `PHPCS` to ensure that PHP code complies with `PSR2` code standards.
+
+* Implemented `Codacy` to automates code reviews and monitors code quality over time.
+
+* Implemented `Codecov` to coverage reports.
+
+* Added `ErrorHandler/phpcs.ruleset.xml` file.
+
+* Deleted `ErrorHandler/src/bootstrap.php` file.
+
+* Deleted `ErrorHandler/tests/bootstrap.php` file.
+
+* Deleted `ErrorHandler/vendor` folder.
+
+* Changed `Josantonius\ErrorHandler\Test\ErrorHandlerTest` class to  `Josantonius\ErrorHandler\ErrorHandlerTest` class.
+
 ## 1.1.5 - 2017-09-13
 
 * Unit tests supported by `PHPUnit` were added.
