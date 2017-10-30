@@ -25,13 +25,13 @@ Biblioteca PHP para manejar excepciones y errores.
 
 ### Requisitos
 
-Esta clase es soportada por versiones de `PHP 5.6` o superiores y es compatible con versiones de `HHVM 3.0` o superiores.
+Esta clase es soportada por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
 ### Instalación 
 
 La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
 
-Para instalar `PHP ErrorHandler library`, simplemente escribe:
+Para instalar **PHP ErrorHandler library**, simplemente escribe:
 
     $ composer require Josantonius/ErrorHandler
 
@@ -53,7 +53,7 @@ O **instalarlo manualmente**:
 
 Métodos disponibles en esta biblioteca:
 
-`Set customs methods to renderizate:`
+### - Set customs methods to renderizate:
 
 ```php
 ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
@@ -70,7 +70,7 @@ ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
 
 ### Cómo empezar
 
-Para utilizar esta biblioteca, simplemente:
+Para utilizar esta clase con **Composer**:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
@@ -78,7 +78,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Josantonius\ErrorHandler\ErrorHandler;
 ```
 
-Si la instalaste `manualmente`, utiliza:
+Si la instalaste **manualmente**, utiliza:
 
 ```php
 require_once __DIR__ . '/ErrorHandler.php';

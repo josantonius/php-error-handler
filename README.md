@@ -23,15 +23,15 @@ PHP library for handling exceptions and errors.
 
 ---
 
-### Requirements
+## Requirements
 
-This library is supported by `PHP versions 5.6` or higher and is compatible with `HHVM versions 3.0` or higher.
+This library is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
 
-### Installation
+## Installation
 
 The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-To install `PHP ErrorHandler library`, simply:
+To install **PHP ErrorHandler library**, simply:
 
     $ composer require Josantonius/ErrorHandler
 
@@ -49,11 +49,11 @@ Or **install it manually**:
 
     $ wget https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php
 
-### Available Methods
+## Available Methods
 
 Available methods in this library:
 
-`Set customs methods to renderizate:`
+### - Set customs methods to renderizate:
 
 ```php
 ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
@@ -68,9 +68,9 @@ ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
 
 **# Return** (void)
 
-### Quick Start
+## Quick Start
 
-To use this class with `Composer`:
+To use this class with **Composer**:
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
@@ -78,7 +78,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Josantonius\ErrorHandler\ErrorHandler;
 ```
 
-Or If you installed it `manually`, use it:
+Or If you installed it **manually**, use it:
 
 ```php
 require_once __DIR__ . '/ErrorHandler.php';
@@ -86,7 +86,7 @@ require_once __DIR__ . '/ErrorHandler.php';
 use Josantonius\ErrorHandler\ErrorHandler;
 ```
 
-### Usage
+## Usage
 
 Example of use for this library:
 
@@ -121,7 +121,7 @@ $default = true;
 ErrorHandler::SetCustomMethod($class, $method, $times, $default);
 ```
 
-### Tests 
+## Tests 
 
 To run [tests](tests) you just need [Composer](http://getcomposer.org/download/) and to execute the following:
 
@@ -143,19 +143,19 @@ Run all previous tests:
 
     $ composer tests
 
-### Images
+## Images
 
 ![image](resources/images/exception.png)
 ![image](resources/images/error.png)
 ![image](resources/images/notice.png)
 ![image](resources/images/warning.png)
 
-### ☑ TODO
+## ☑ TODO
 
 - [x] Create tests
 - [x] Improve documentation
 
-### Contribute
+## Contribute
 
 1. Check for open issues or open a new issue to start a discussion around a bug or feature.
 1. Fork the repository on GitHub to start making your changes.
@@ -165,15 +165,15 @@ Run all previous tests:
 
 This is intended for large and long-lived objects.
 
-### Repository
+## Repository
 
 All files in this repository were created and uploaded automatically with [Reposgit Creator](https://github.com/Josantonius/BASH-Reposgit).
 
-### License
+## License
 
 This project is licensed under **MIT license**. See the [LICENSE](LICENSE) file for more info.
 
-### Copyright
+## Copyright
 
 2016 - 2017 Josantonius, [josantonius.com](https://josantonius.com/)
 
