@@ -8,7 +8,6 @@
  * @link      https://github.com/Josantonius/PHP-ErrorHandler
  * @since     1.0.0
  */
-
 namespace Josantonius\ErrorHandler;
 
 /**
@@ -49,8 +48,6 @@ class ErrorHandler
      * Catch errors and exceptions and execute the method.
      *
      * @since 1.0.0
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -66,14 +63,12 @@ class ErrorHandler
      * Optionally for libraries used in Eliasis PHP Framework: $e->statusCode
      *
      * @param object $e
-     *        string $e->getMessage()       → exception message
-     *        int    $e->getCode()          → exception code
-     *        string $e->getFile()          → file
-     *        int    $e->getLine()          → line
-     *        string $e->getTraceAsString() → trace as string
-     *        int    $e->statusCode         → HTTP response status code
-     *
-     * @return void
+     *                  string $e->getMessage()       → exception message
+     *                  int    $e->getCode()          → exception code
+     *                  string $e->getFile()          → file
+     *                  int    $e->getLine()          → line
+     *                  string $e->getTraceAsString() → trace as string
+     *                  int    $e->statusCode         → HTTP response status code
      */
     public function exception($e)
     {
@@ -85,7 +80,7 @@ class ErrorHandler
         $trace = "\r\n<hr>BACKTRACE:\r\n";
 
         foreach ($traceString as $key => $value) {
-            $trace .= "\n" . $key . " ·" . $value;
+            $trace .= "\n" . $key . ' ·' . $value;
         }
 
         $this->setParams(
@@ -111,7 +106,7 @@ class ErrorHandler
      * @param int $file → error file
      * @param int $line → error line
      *
-     * @return boolean
+     * @return bool
      */
     public function error($code, $msg, $file, $line)
     {
@@ -135,35 +130,35 @@ class ErrorHandler
     {
         switch ($code) {
             case E_ERROR:
-                return self::$stack['type'] = 'Error'; # 1
+                return self::$stack['type'] = 'Error'; // 1
             case E_WARNING:
-                return self::$stack['type'] = 'Warning'; # 2
+                return self::$stack['type'] = 'Warning'; // 2
             case E_PARSE:
-                return self::$stack['type'] = 'Parse'; # 4
+                return self::$stack['type'] = 'Parse'; // 4
             case E_NOTICE:
-                return self::$stack['type'] = 'Notice'; # 8
+                return self::$stack['type'] = 'Notice'; // 8
             case E_CORE_ERROR:
-                return self::$stack['type'] = 'Core-Error'; # 16
+                return self::$stack['type'] = 'Core-Error'; // 16
             case E_CORE_WARNING:
-                return self::$stack['type'] = 'Core Warning'; # 32
+                return self::$stack['type'] = 'Core Warning'; // 32
             case E_COMPILE_ERROR:
-                return self::$stack['type'] = 'Compile Error'; # 64
+                return self::$stack['type'] = 'Compile Error'; // 64
             case E_COMPILE_WARNING:
-                return self::$stack['type'] = 'Compile Warning'; # 128
+                return self::$stack['type'] = 'Compile Warning'; // 128
             case E_USER_ERROR:
-                return self::$stack['type'] = 'User Error'; # 256
+                return self::$stack['type'] = 'User Error'; // 256
             case E_USER_WARNING:
-                return self::$stack['type'] = 'User Warning'; # 512
+                return self::$stack['type'] = 'User Warning'; // 512
             case E_USER_NOTICE:
-                return self::$stack['type'] = 'User Notice'; # 1024
+                return self::$stack['type'] = 'User Notice'; // 1024
             case E_STRICT:
-                return self::$stack['type'] = 'Strict'; # 2048
+                return self::$stack['type'] = 'Strict'; // 2048
             case E_RECOVERABLE_ERROR:
-                return self::$stack['type'] = 'Recoverable Error'; # 4096
+                return self::$stack['type'] = 'Recoverable Error'; // 4096
             case E_DEPRECATED:
-                return self::$stack['type'] = 'Deprecated'; # 8192
+                return self::$stack['type'] = 'Deprecated'; // 8192
             case E_USER_DEPRECATED:
-                return self::$stack['type'] = 'User Deprecated'; # 16384
+                return self::$stack['type'] = 'User Deprecated'; // 16384
             default:
                 return self::$stack['type'] = 'Error';
         }
@@ -177,9 +172,7 @@ class ErrorHandler
      * @param string|object $class   → class name or class object
      * @param string        $method  → method name
      * @param int           $repeat  → number of times to repeat method
-     * @param boolean       $default → show default view
-     *
-     * @return void
+     * @param bool          $default → show default view
      */
     public static function setCustomMethod($class, $method, $repeat = 0, $default = false)
     {
@@ -203,14 +196,14 @@ class ErrorHandler
     protected function setParams($type, $code, $msg, $file, $line, $trace, $http)
     {
         return self::$stack = [
-            'type'      => $type,
-            'message'   => $msg,
-            'file'      => $file,
-            'line'      => $line,
-            'code'      => $code,
+            'type' => $type,
+            'message' => $msg,
+            'file' => $file,
+            'line' => $line,
+            'code' => $code,
             'http-code' => ($http === 0) ? http_response_code() : $http,
-            'trace'     => $trace,
-            'preview'   => '',
+            'trace' => $trace,
+            'preview' => '',
         ];
     }
 
@@ -218,20 +211,17 @@ class ErrorHandler
      * Get preview of the error line.
      *
      * @since 1.1.0
-     *
-     * @return void
      */
     protected function getPreviewCode()
     {
-
         $file = file(self::$stack['file']);
         $line = self::$stack['line'];
 
         $start = ($line - 5 >= 0) ? $line - 5 : $line - 1;
-        $end   = ($line - 5 >= 0) ? $line + 4 : $line + 8;
+        $end = ($line - 5 >= 0) ? $line + 4 : $line + 8;
 
         for ($i = $start; $i < $end; $i++) {
-            if (!isset($file[$i])) {
+            if (! isset($file[$i])) {
                 continue;
             }
 
@@ -239,14 +229,14 @@ class ErrorHandler
 
             if ($i == $line - 1) {
                 self::$stack['preview'] .=
-                    "<span class='jst-line'>" . ($i + 1) . "</span>" .
-                    "<span class='jst-mark text'>" . $text . "</span><br>";
+                    "<span class='jst-line'>" . ($i + 1) . '</span>' .
+                    "<span class='jst-mark text'>" . $text . '</span><br>';
                 continue;
             }
 
             self::$stack['preview'] .=
-                "<span class='jst-line'>" . ($i + 1) . "</span>" .
-                "<span class='text'>" . $text . "</span><br>";
+                "<span class='jst-line'>" . ($i + 1) . '</span>' .
+                "<span class='text'>" . $text . '</span><br>';
         }
     }
 
@@ -254,24 +244,22 @@ class ErrorHandler
      * Get customs methods to renderizate.
      *
      * @since 1.1.3
-     *
-     * @return void
      */
     protected function getCustomMethods()
     {
         $showDefaultView = true;
-        $params          = [self::$stack];
+        $params = [self::$stack];
 
         unset($params[0]['trace'], $params[0]['preview']);
 
-        $count         = count(self::$customMethods);
+        $count = count(self::$customMethods);
         $customMethods = self::$customMethods;
 
         for ($i = 0; $i < $count; $i++) {
-            $custom      = $customMethods[$i];
-            $class       = isset($custom[0]) ? $custom[0] : false;
-            $method      = isset($custom[1]) ? $custom[1] : false;
-            $repeat      = $custom[2];
+            $custom = $customMethods[$i];
+            $class = isset($custom[0]) ? $custom[0] : false;
+            $method = isset($custom[1]) ? $custom[1] : false;
+            $repeat = $custom[2];
             $showDefault = $custom[3];
 
             if ($showDefault === false) {
@@ -297,22 +285,24 @@ class ErrorHandler
      *
      * @since 1.0.0
      *
-     * @return boolean
+     * @return bool
      */
     protected function render()
     {
         self::$stack['mode'] = defined('HHVM_VERSION') ? 'HHVM' : 'PHP';
 
-        if (self::$customMethods && !$this->getCustomMethods()) {
+        if (self::$customMethods && ! $this->getCustomMethods()) {
             return false;
         }
 
         $this->getPreviewCode();
 
-        if (!self::$styles) {
+        if (! self::$styles) {
             self::$styles = true;
             self::$stack['css'] = require __DIR__ . '/public/css/styles.html';
         }
+
+        $stack = self::$stack;
 
         require __DIR__ . '/public/template/view.php';
 

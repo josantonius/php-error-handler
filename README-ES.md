@@ -23,11 +23,11 @@ Biblioteca PHP para manejar excepciones y errores.
 
 ---
 
-### Requisitos
+## Requisitos
 
 Esta clase es soportada por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
-### Instalación 
+## Instalación 
 
 La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
 
@@ -49,7 +49,7 @@ O **instalarlo manualmente**:
 
     $ wget https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php
 
-### Métodos disponibles
+## Métodos disponibles
 
 Métodos disponibles en esta biblioteca:
 
@@ -68,7 +68,7 @@ ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
 
 **# Return** (void)
 
-### Cómo empezar
+## Cómo empezar
 
 Para utilizar esta clase con **Composer**:
 
@@ -86,7 +86,7 @@ require_once __DIR__ . '/ErrorHandler.php';
 use Josantonius\ErrorHandler\ErrorHandler;
 ```
 
-### Uso
+## Uso
 
 Ejemplo de uso para esta biblioteca:
 
@@ -120,7 +120,7 @@ $default = true;
 ErrorHandler::SetCustomMethod($class, $method, $times, $default);
 ```
 
-### Tests 
+## Tests 
 
 Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
@@ -138,43 +138,54 @@ Ejecutar pruebas de estándares de código [PSR2](http://www.php-fig.org/psr/psr
 
     $ composer phpcs
 
+Ejecutar pruebas con [PHP Mess Detector](https://phpmd.org/) para detectar inconsistencias en el estilo de codificación:
+
+    $ composer phpmd
+
 Ejecutar todas las pruebas anteriores:
 
     $ composer tests
 
-### Imágenes
+## Imágenes
 
 ![image](resources/images/exception.png)
 ![image](resources/images/error.png)
 ![image](resources/images/notice.png)
 ![image](resources/images/warning.png)
 
-### ☑ Tareas pendientes
+## ☑ Tareas pendientes
 
-- [x] Completar tests
-- [x] Mejorar la documentación
+- [ ] Añadir nueva funcionalidad
+- [ ] Mejorar pruebas
+- [ ] Mejorar documentación
+- [ ] Refactorizar código
 
-### Contribuir
+## Contribuir
 
-1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
-1. Bifurca la rama del repositorio en GitHub para iniciar la operación de ajuste.
-1. Escribe una o más pruebas para la nueva característica o expón el error.
-1. Haz cambios en el código para implementar la característica o reparar el fallo.
-1. Envía pull request para fusionar los cambios y que sean publicados.
+Si deseas colaborar, puedes echar un vistazo a la lista de
+[issues](https://github.com/Josantonius/PHP-ErrorHandler/issues) o [tareas pendientes](#-tareas-pendientes).
 
-Esto está pensado para proyectos grandes y de larga duración.
+**Pull requests**
 
-### Repositorio
+* [Fork and clone](https://help.github.com/articles/fork-a-repo).
+* Ejecuta el comando `composer install` para instalar dependencias.
+  Esto también instalará las [dependencias de desarrollo](https://getcomposer.org/doc/03-cli.md#install).
+* Ejecuta el comando `composer fix` para estandarizar el código.
+* Ejecuta las [pruebas](#tests).
+* Crea una nueva rama (**branch**), **commit**, **push** y envíame un
+  [pull request](https://help.github.com/articles/using-pull-requests).
 
-Los archivos de este repositorio se crearon y subieron automáticamente con [Reposgit Creator](https://github.com/Josantonius/BASH-Reposgit).
+## Repositorio
 
-### Licencia
+La estructura de archivos de este repositorio se creó con [PHP-Skeleton](https://github.com/Josantonius/PHP-Skeleton).
+
+## Licencia
 
 Este proyecto está licenciado bajo **licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
 
-### Copyright
+## Copyright
 
-2016 - 2017 Josantonius, [josantonius.com](https://josantonius.com/)
+2017 Josantonius, [josantonius.com](https://josantonius.com/)
 
 Si te ha resultado útil, házmelo saber :wink:
 

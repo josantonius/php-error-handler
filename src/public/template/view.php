@@ -9,33 +9,33 @@
  * @since     1.0.0
  */
 ?>
-<div class="jst-alert Default <?=static::$stack['type']?>">
+<div class="jst-alert Default <?=$stack['type']?>">
 
    <span class="jst-head">
-        <?=static::$stack['code']?>
-        <?=strtoupper(static::$stack['type'])?>
-        <a href="https://stackoverflow.com/search?q=[php] <?=static::$stack['message']?>" class="so-link">&#9906;</a>
+        <?=$stack['code']?>
+        <?=strtoupper($stack['type'])?>
+        <a href="https://stackoverflow.com/search?q=[php] <?=$stack['message']?>" class="so-link">&#9906;</a>
    </span>
 
    <span class="jst-head jst-right">
-        <?=static::$stack['mode']?>
+        <?=$stack['mode']?>
    </span>
 
    <span class="jst-message"><br><br>
-        <?=static::$stack['message']?>
+        <?=$stack['message']?>
    </span><br><br>
 
    <div class="jst-preview">
         <span class="jst-file">
-            <?=static::$stack['file']?>
+            <?=$stack['file']?>
         </span><br>
         <code>
-        <?=static::$stack['preview']?>
+        <?=$stack['preview']?>
         </code>
    </div>
 
    <div class="jst-trace">
-        <?=nl2br(static::$stack['trace'])?>
+        <?=nl2br($stack['trace'])?>
    </div><br>
 
 </div>
