@@ -3,7 +3,7 @@
  * PHP library for handling exceptions and errors.
  *
  * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 (c) Josantonius - PHP-DataType
+ * @copyright 2016 - 2018 (c) Josantonius - PHP-ErrorHandler
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link      https://github.com/Josantonius/PHP-ErrorHandler
  * @since     1.1.5
@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for ErrorHandler library.
- *
- * @since 1.1.5
  */
 final class ErrorHandlerTest extends TestCase
 {
@@ -30,8 +28,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Set up.
-     *
-     * @since 1.1.5
      */
     public function setUp()
     {
@@ -47,14 +43,14 @@ final class ErrorHandlerTest extends TestCase
      */
     public function testIsInstanceOfErrorHandler()
     {
-        $actual = $this->ErrorHandler;
-        $this->assertInstanceOf('Josantonius\ErrorHandler\ErrorHandler', $actual);
+        $this->assertInstanceOf(
+            'Josantonius\ErrorHandler\ErrorHandler',
+            $this->ErrorHandler
+        );
     }
 
     /**
      * Check if custom exception handler is activated.
-     *
-     * @since 1.1.5
      */
     public function testIfCustomExceptionHandlerIsActivated()
     {
@@ -68,8 +64,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Check if custom exception handler is activated.
-     *
-     * @since 1.1.5
      */
     public function testIfCustomErrorHandlerIsActivated()
     {
@@ -83,8 +77,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test exception handler.
-     *
-     * @since 1.1.5
      */
     public function testException()
     {
@@ -95,8 +87,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test exception handler with custom methods and not show default view.
-     *
-     * @since 1.1.5
      */
     public function testExceptionWithCustomMethodsWithoutShowDefaultView()
     {
@@ -114,8 +104,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test exception handler with custom methods and show default view.
-     *
-     * @since 1.1.5
      */
     public function testExceptionWithCustomMethodsAndShowDefaultView()
     {
@@ -133,8 +121,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test error handler.
-     *
-     * @since 1.1.5
      */
     public function testError()
     {
@@ -145,8 +131,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test error handler with custom methods and not show default view.
-     *
-     * @since 1.1.5
      */
     public function testErrorWithCustomMethodsWithoutShowDefaultView()
     {
@@ -164,8 +148,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Test error handler with custom methods and show default view.
-     *
-     * @since 1.1.5
      */
     public function testErrorWithCustomMethodsAndShowDefaultView()
     {
@@ -183,8 +165,6 @@ final class ErrorHandlerTest extends TestCase
 
     /**
      * Get error type.
-     *
-     * @since 1.1.5
      */
     public function testGetErrorType()
     {

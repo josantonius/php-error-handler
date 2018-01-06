@@ -3,7 +3,7 @@
  * PHP library for handling exceptions and errors.
  *
  * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 (c) Josantonius - PHP-DataType
+ * @copyright 2016 - 2018 (c) Josantonius - PHP-DataType
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link      https://github.com/Josantonius/PHP-ErrorHandler
  * @since     1.0.0

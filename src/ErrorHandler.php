@@ -3,7 +3,7 @@
  * PHP library for handling exceptions and errors.
  *
  * @author    Josantonius <hello@josantonius.com>
- * @copyright 2017 (c) Josantonius - PHP-DataType
+ * @copyright 2016 - 2018 (c) Josantonius - PHP-DataType
  * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link      https://github.com/Josantonius/PHP-ErrorHandler
  * @since     1.0.0
@@ -12,15 +12,11 @@ namespace Josantonius\ErrorHandler;
 
 /**
  * Handling exceptions and errors.
- *
- * @since 1.0.0
  */
 class ErrorHandler
 {
     /**
      * Active stack.
-     *
-     * @since 1.0.0
      *
      * @var array
      */
@@ -28,8 +24,6 @@ class ErrorHandler
 
     /**
      * Style load validator.
-     *
-     * @since 1.0.0
      *
      * @var bool
      */
@@ -46,8 +40,6 @@ class ErrorHandler
 
     /**
      * Catch errors and exceptions and execute the method.
-     *
-     * @since 1.0.0
      */
     public function __construct()
     {
@@ -57,8 +49,6 @@ class ErrorHandler
 
     /**
      * Handle exceptions catch.
-     *
-     * @since 1.0.0
      *
      * Optionally for libraries used in Eliasis PHP Framework: $e->statusCode
      *
@@ -99,14 +89,12 @@ class ErrorHandler
     /**
      * Handle error catch.
      *
-     * @since 1.0.0
-     *
      * @param int $code → error code
      * @param int $msg  → error message
      * @param int $file → error file
      * @param int $line → error line
      *
-     * @return bool
+     * @return boolean
      */
     public function error($code, $msg, $file, $line)
     {
@@ -119,8 +107,6 @@ class ErrorHandler
 
     /**
      * Convert error code to text.
-     *
-     * @since 1.0.0
      *
      * @param int $code → error code
      *
@@ -283,9 +269,7 @@ class ErrorHandler
     /**
      * Renderization.
      *
-     * @since 1.0.0
-     *
-     * @return bool
+     * @return boolean
      */
     protected function render()
     {
