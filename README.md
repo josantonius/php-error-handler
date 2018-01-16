@@ -61,7 +61,7 @@ ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
 
 | Attribute | Description | Type | Required | Default
 | --- | --- | --- | --- | --- |
-| $class | Class name or class object. | string|object| Yes | |
+| $class | Class name or class object. | callable | Yes | |
 | $method | Method name. | string| Yes | |
 | $repeat | Number of times to repeat method. | int | No | 0 |
 | $default | Show default view. | boolean | No | false |
