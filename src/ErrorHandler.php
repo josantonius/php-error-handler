@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Josantonius\ErrorHandler;
 
-use Josantonius\ErrorHandler\Exceptions\ErrorException;
 use Josantonius\ErrorHandler\Exceptions\WrongErrorLevelException;
 
 /**

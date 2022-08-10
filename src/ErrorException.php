@@ -9,7 +9,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Josantonius\ErrorHandler\Exceptions;
+namespace Josantonius\ErrorHandler;
 
 use ErrorException as BaseErrorException;
 use Josantonius\ErrorHandler\ErrorHandled;
