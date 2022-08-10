@@ -1,12 +1,62 @@
 # CHANGELOG
 
-## 1.1.8 - 2018-01-06
+## [v2.0.0](https://github.com/josantonius/php-error/releases/tag/v2.0.0) (2022-08-10)
+
+> Version 1.x is considered as deprecated and unsupported.
+> In this version (2.x) the library was completely restructured.
+> It is recommended to review the documentation for this version and make the necessary changes
+> before starting to use it, as it not be compatible with version 1.x.
+
+---
+
+* The library was completely refactored.
+
+* Support for PHP version 8.1.
+
+* Support for earlier versions of PHP **8.1** is discontinued.
+
+* In this version exceptions are no longer handled.
+You can use [josantonius/exception-handler](https://github.com/josantonius/php-exception-handler)
+to handle them.
+
+* HTML error rendering has also been discontinued.
+
+* The package name was changed from `josantonius/errorhandler` to `josantonius/error-handler`.
+
+* Improved documentation; `README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` and `CHANGELOG.md`.
+
+* Removed `Codacy`.
+
+* Removed `PHP Coding Standards Fixer`.
+
+* The `master` branch was renamed to `main`.
+
+* The `develop` branch was added to use a workflow based on `Git Flow`.
+
+* `Travis` is discontinued for continuous integration. `GitHub Actions` will be used from now on.
+
+* Added `.github/CODE_OF_CONDUCT.md` file.
+* Added `.github/CONTRIBUTING.md` file.
+* Added `.github/FUNDING.yml` file.
+* Added `.github/workflows/ci.yml` file.
+* Added `.github/lang/es-ES/CODE_OF_CONDUCT.md` file.
+* Added `.github/lang/es-ES/CONTRIBUTING.md` file.
+* Added `.github/lang/es-ES/LICENSE` file.
+* Added `.github/lang/es-ES/README` file.
+
+* Deleted `.travis.yml` file.
+* Deleted `.editorconfig` file.
+* Deleted `CONDUCT.MD` file.
+* Deleted `README-ES.MD` file.
+* Deleted `.php_cs.dist` file.
+
+## [1.1.8](https://github.com/josantonius/php-error/releases/tag/1.1.8) (2018-01-06)
 
 * The tests were fixed.
 
 * Changes in documentation.
 
-## 1.1.7 - 2017-11-08
+## [1.1.7](https://github.com/josantonius/php-error/releases/tag/1.1.7) (2017-11-08)
 
 * Implemented `PHP Mess Detector` to detect inconsistencies in code styles.
 
@@ -14,7 +64,7 @@
 
 * Implemented `PHP Coding Standards Fixer` to organize PHP code automatically according to PSR standards.
 
-## 1.1.6 - 2017-10-27
+## [1.1.6](https://github.com/josantonius/php-error/releases/tag/1.1.6) (2017-10-27)
 
 * Implemented `PSR-4 autoloader standard` from all library files.
 
@@ -34,14 +84,12 @@
 
 * Deleted `ErrorHandler/vendor` folder.
 
-* Changed `Josantonius\ErrorHandler\Test\ErrorHandlerTest` class to  `Josantonius\ErrorHandler\ErrorHandlerTest` class.
-
-## 1.1.5 - 2017-09-13
+## [1.1.5](https://github.com/josantonius/php-error/releases/tag/1.1.5) (2017-09-13)
 
 * Unit tests supported by `PHPUnit` were added.
 
 * The repository was synchronized with Travis CI to implement continuous integration.
- 
+
 * Added `ErrorHandler/src/bootstrap.php` file
 
 * Added `ErrorHandler/tests/bootstrap.php` file.
@@ -64,24 +112,13 @@
 * Deleted `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSetCustomMethod()` method.
 * Deleted `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->_customMethodResponse()` method.
 
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest` class.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testIfCustomExceptionHandlerIsActivated()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testIfCustomErrorHandlerIsActivated()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testException()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testExceptionWithCustomMethodsWithoutShowDefaultView()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testExceptionWithCustomMethodsAndShowDefaultView()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testError()` method.
-* Added `Josantonius\ErrorHandler\Test\ErrorHandlerTest->testErrorWithCustomMethodsWithoutShowDefaultView()` method.
-* Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testErrorWithCustomMethodsAndShowDefaultView()` method.
-* Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testGetErrorType()` method.
-
-## 1.1.4 - 2017-07-16
+## [1.1.4](https://github.com/josantonius/php-error/releases/tag/1.1.4) (2017-07-16)
 
 * Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException` class.
 * Deleted `Josantonius\ErrorHandler\Exception\Exceptions` abstract class.
 * Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException->__construct()` method.
 
-## 1.1.3 - 2017-05-15
+## [1.1.3](https://github.com/josantonius/php-error/releases/tag/1.1.3) (2017-05-15)
 
 * You can now add custom methods to run instead of displaying the default view.
 
@@ -92,28 +129,24 @@
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSetCustomMethod()` method.
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->_customMethodResponse()` method.
 
-## 1.1.2 - 2017-03-18
+## [1.1.2](https://github.com/josantonius/php-error/releases/tag/1.1.2) (2017-03-18)
 
 * Some files were excluded from download and comments and readme files were updated.
 
-## 1.1.1 - 2017-02-21
+## [1.1.1](https://github.com/josantonius/php-error/releases/tag/1.1.1) (2017-02-21)
 
 * Added `Josantonius\ErrorHandler\ErrorHandler->getPreviewCode()` method.
 * Deleted `Josantonius\ErrorHandler\ErrorHandler->catchThrowable()` method.
 * Deleted `Josantonius\ErrorHandler\ErrorHandler->catchException()` method.
-* Changed `Josantonius\ErrorHandler\ErrorHandler->catchError()` method to `Josantonius\ErrorHandler\ErrorHandler->error()`.
-* Changed `Josantonius\ErrorHandler\ErrorHandler->prepareException()` method to `Josantonius\ErrorHandler\ErrorHandler->exception()`.
-* Changed `Josantonius\ErrorHandler\ErrorHandler->show()` method to `Josantonius\ErrorHandler\ErrorHandler->render()`.
 
-## 1.1.0 - 2017-01-30
+## [1.1.0](https://github.com/josantonius/php-error/releases/tag/1.1.0) (2017-01-30)
 
 * Compatible with PHP 5.6 or higher.
 
-## 1.0.0 - 2017-01-30
+## [1.0.0](https://github.com/josantonius/php-error/releases/tag/1.0.0) (2016-12-14)
 
-* Compatible only with PHP 7.0 or higher. In the next versions, the library will be modified to make it compatible with PHP 5.6 or higher.
-
-## 1.0.0 - 2016-12-14
+* Compatible only with PHP 7.0 or higher.
+In the next versions, the library will be modified to make it compatible with PHP 5.6 or higher.
 
 * Added `Josantonius\ErrorHandler\ErrorHandler` class.
 * Added `Josantonius\ErrorHandler\ErrorHandler->__construct()` method.
@@ -125,13 +158,9 @@
 * Added `Josantonius\ErrorHandler\ErrorHandler->getErrorType()` method.
 * Added `Josantonius\ErrorHandler\ErrorHandler->show()` method.
 
-## 1.0.0 - 2016-12-14
-
 * Added `Josantonius\ErrorHandler\Exception\ErrorHandlerException` class.
 * Added `Josantonius\ErrorHandler\Exception\Exceptions` abstract class.
 * Added `Josantonius\ErrorHandler\Exception\ErrorHandlerException->__construct()` method.
-
-## 1.0.0 - 2016-12-14
 
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest` class.
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSProvokeException()` method.
