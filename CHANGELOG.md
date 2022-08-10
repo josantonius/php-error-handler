@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v2.0.1](https://github.com/josantonius/php-error/releases/tag/v2.0.1) (2022-08-11)
+
+* Documentation was improved.
+
 ## [v2.0.0](https://github.com/josantonius/php-error/releases/tag/v2.0.0) (2022-08-10)
 
 > Version 1.x is considered as deprecated and unsupported.
