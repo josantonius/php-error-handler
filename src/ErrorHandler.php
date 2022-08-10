@@ -1,295 +1,174 @@
 <?php
-/**
- * PHP library for handling exceptions and errors.
- *
- * @author    Josantonius <hello@josantonius.com>
- * @copyright 2016 - 2018 (c) Josantonius - PHP-DataType
- * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link      https://github.com/Josantonius/PHP-ErrorHandler
- * @since     1.0.0
- */
+
+declare(strict_types=1);
+
+/*
+* This file is part of https://github.com/josantonius/php-error-handler repository.
+*
+* (c) Josantonius <hello@josantonius.dev>
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
 namespace Josantonius\ErrorHandler;
 
+use Josantonius\ErrorHandler\Exceptions\ErrorException;
+use Josantonius\ErrorHandler\Exceptions\WrongErrorLevelException;
+
 /**
- * Handling exceptions and errors.
+ * Handling errors.
  */
 class ErrorHandler
 {
     /**
-     * Active stack.
-     *
-     * @var array
+     * @var callable|null Error handler function.
      */
-    public static $stack;
+    private $callback = null;
 
     /**
-     * Style load validator.
-     *
-     * @var bool
+     * Error levels.
      */
-    public static $styles = false;
+    private array $errorLevels = [
+        E_ERROR             => 'Error',
+        E_WARNING           => 'Warning',
+        E_PARSE             => 'Parse',
+        E_NOTICE            => 'Notice',
+        E_CORE_ERROR        => 'Core Error',
+        E_CORE_WARNING      => 'Core Warning',
+        E_COMPILE_ERROR     => 'Compile Error',
+        E_COMPILE_WARNING   => 'Compile Warning',
+        E_USER_ERROR        => 'User Error',
+        E_USER_WARNING      => 'User Warning',
+        E_USER_NOTICE       => 'User Notice',
+        E_STRICT            => 'Strict',
+        E_RECOVERABLE_ERROR => 'Recoverable Error',
+        E_DEPRECATED        => 'Deprecated',
+        E_USER_DEPRECATED   => 'User Deprecated',
+        E_ALL               => 'All',
+    ];
 
     /**
-     * Custom methods.
-     *
-     * @since 1.1.3
-     *
-     * @var bool
+     * List of error levels that will be converted to exceptions.
      */
-    public static $customMethods = false;
+    private array $exceptionable = [];
+
 
     /**
-     * Catch errors and exceptions and execute the method.
+     * If the error reporting level is used.
      */
-    public function __construct()
+    private bool $userErrorReporting = false;
+
+    /**
+     * Convert errors to exceptions.
+     *
+     * @param int[] $erroLevel Define the specific error levels that will become exceptions.
+     *
+     * @throws WrongErrorLevelException if error level is not valid.
+     *
+     * @see https://www.php.net/manual/en/errorfunc.constants.php
+     */
+    public function convertToExceptions(int ...$errorLevel): self
     {
-        set_exception_handler([$this, 'exception']);
-        set_error_handler([$this, 'error']);
+        $this->throwExceptionIfHasWrongErrorLevel($errorLevel);
+
+        $this->exceptionable = $errorLevel ? [...$errorLevel] : array_keys($this->errorLevels);
+
+        return $this;
     }
 
     /**
-     * Handle exceptions catch.
+     * Convert errors to exceptions except for some of them.
      *
-     * Optionally for libraries used in Eliasis PHP Framework: $e->statusCode
+     * @param int[] $erroLevel Define specific error levels that will not become exceptions.
      *
-     * @param object $e
-     *                  string $e->getMessage()       → exception message
-     *                  int    $e->getCode()          → exception code
-     *                  string $e->getFile()          → file
-     *                  int    $e->getLine()          → line
-     *                  string $e->getTraceAsString() → trace as string
-     *                  int    $e->statusCode         → HTTP response status code
+     * @throws WrongErrorLevelException if error level is not valid.
+     *
+     * @see https://www.php.net/manual/en/errorfunc.constants.php
      */
-    public function exception($e)
+    public function convertToExceptionsExcept(int ...$errorLevel): self
     {
-        $traceString = preg_split("/#[\d]/", $e->getTraceAsString());
+        $this->throwExceptionIfHasWrongErrorLevel($errorLevel);
 
-        unset($traceString[0]);
-        array_pop($traceString);
+        $this->exceptionable = $errorLevel
+            ? array_values(array_diff(array_keys($this->errorLevels), $errorLevel))
+            : array_keys($this->errorLevels);
 
-        $trace = "\r\n<hr>BACKTRACE:\r\n";
+        return $this;
+    }
 
-        foreach ($traceString as $key => $value) {
-            $trace .= "\n" . $key . ' ·' . $value;
-        }
+    /**
+     * Register error handler function.
+     */
+    public function register(callable $callback): self
+    {
+        $this->callback = $callback;
 
-        $this->setParams(
-            'Exception',
-            $e->getCode(),
-            $e->getMessage(),
-            $e->getFile(),
-            $e->getLine(),
-            $trace,
-            (isset($e->statusCode)) ? $e->statusCode : 0
+        set_error_handler(
+            fn ($level, $message, $file, $line) => $this->handler($level, $message, $file, $line)
         );
 
-        return $this->render();
+        register_shutdown_function(fn () => $this->checkForShutdownErrors());
+
+        return $this;
     }
 
     /**
-     * Handle error catch.
+     * If the setting value in error_reporting() is used to determine which errors are handled.
      *
-     * @param int $code → error code
-     * @param int $msg  → error message
-     * @param int $file → error file
-     * @param int $line → error line
+     * If this method is not used, all errors will be sent to the handler.
      *
-     * @return boolean
+     * @see https://www.php.net/manual/en/function.error-reporting.php
      */
-    public function error($code, $msg, $file, $line)
+    public function useErrorReportingLevel(): self
     {
-        $type = $this->getErrorType($code);
+        $this->userErrorReporting = true;
 
-        $this->setParams($type, $code, $msg, $file, $line, '', 0);
-
-        return $this->render();
+        return $this;
     }
 
     /**
-     * Convert error code to text.
-     *
-     * @param int $code → error code
-     *
-     * @return string → error type
+     * Check for errors during shutdown.
      */
-    public function getErrorType($code)
+    private function checkForShutdownErrors(array $error = []): void
     {
-        switch ($code) {
-            case E_ERROR:
-                return self::$stack['type'] = 'Error'; // 1
-            case E_WARNING:
-                return self::$stack['type'] = 'Warning'; // 2
-            case E_PARSE:
-                return self::$stack['type'] = 'Parse'; // 4
-            case E_NOTICE:
-                return self::$stack['type'] = 'Notice'; // 8
-            case E_CORE_ERROR:
-                return self::$stack['type'] = 'Core-Error'; // 16
-            case E_CORE_WARNING:
-                return self::$stack['type'] = 'Core Warning'; // 32
-            case E_COMPILE_ERROR:
-                return self::$stack['type'] = 'Compile Error'; // 64
-            case E_COMPILE_WARNING:
-                return self::$stack['type'] = 'Compile Warning'; // 128
-            case E_USER_ERROR:
-                return self::$stack['type'] = 'User Error'; // 256
-            case E_USER_WARNING:
-                return self::$stack['type'] = 'User Warning'; // 512
-            case E_USER_NOTICE:
-                return self::$stack['type'] = 'User Notice'; // 1024
-            case E_STRICT:
-                return self::$stack['type'] = 'Strict'; // 2048
-            case E_RECOVERABLE_ERROR:
-                return self::$stack['type'] = 'Recoverable Error'; // 4096
-            case E_DEPRECATED:
-                return self::$stack['type'] = 'Deprecated'; // 8192
-            case E_USER_DEPRECATED:
-                return self::$stack['type'] = 'User Deprecated'; // 16384
-            default:
-                return self::$stack['type'] = 'Error';
+        $error = $error ?? error_get_last();
+
+        if ($error && $error['type'] === E_ERROR) {
+            $this->handler($error['type'], $error['message'], $error['file'], $error['line']);
         }
     }
 
     /**
-     * Set customs methods to renderizate.
+     * Handle error.
      *
-     * @since 1.1.3
-     *
-     * @param string|object $class   → class name or class object
-     * @param string        $method  → method name
-     * @param int           $repeat  → number of times to repeat method
-     * @param bool          $default → show default view
+     * @throws ErrorException if the error is converted into an exception.
      */
-    public static function setCustomMethod($class, $method, $repeat = 0, $default = false)
+    private function handler(int $level, string $message, string $file, int $line): void
     {
-        self::$customMethods[] = [$class, $method, $repeat, $default];
+        if ($this->userErrorReporting && !(error_reporting() & $level)) {
+            return;
+        }
+
+        $errorName    = $this->errorLevels[$level];
+        $errorHandled = new ErrorHandled($level, $message, $file, $line, $errorName);
+
+        $this->callback && ($this->callback)($errorHandled);
+
+        in_array($level, $this->exceptionable) && throw new ErrorException($errorHandled);
     }
 
     /**
-     * Handle error catch.
+     * Throw exception if there is a wrong error code.
      *
-     * @since 1.1.3
-     *
-     * @param int    $code  → exception/error code
-     * @param int    $msg   → exception/error message
-     * @param int    $file  → exception/error file
-     * @param int    $line  → exception/error line
-     * @param string $trace → exception/error trace
-     * @param string $http  → HTTP response status code
-     *
-     * @return array → stack
+     * @throws WrongErrorLevelException if error level is not valid.
      */
-    protected function setParams($type, $code, $msg, $file, $line, $trace, $http)
+    private function throwExceptionIfHasWrongErrorLevel(array $errorLevels): void
     {
-        return self::$stack = [
-            'type' => $type,
-            'message' => $msg,
-            'file' => $file,
-            'line' => $line,
-            'code' => $code,
-            'http-code' => ($http === 0) ? http_response_code() : $http,
-            'trace' => $trace,
-            'preview' => '',
-        ];
-    }
-
-    /**
-     * Get preview of the error line.
-     *
-     * @since 1.1.0
-     */
-    protected function getPreviewCode()
-    {
-        $file = file(self::$stack['file']);
-        $line = self::$stack['line'];
-
-        $start = ($line - 5 >= 0) ? $line - 5 : $line - 1;
-        $end = ($line - 5 >= 0) ? $line + 4 : $line + 8;
-
-        for ($i = $start; $i < $end; $i++) {
-            if (! isset($file[$i])) {
-                continue;
+        foreach ($errorLevels as $level) {
+            if (!isset($this->errorLevels[$level])) {
+                throw new WrongErrorLevelException($level);
             }
-
-            $text = trim($file[$i]);
-
-            if ($i == $line - 1) {
-                self::$stack['preview'] .=
-                    "<span class='jst-line'>" . ($i + 1) . '</span>' .
-                    "<span class='jst-mark text'>" . $text . '</span><br>';
-                continue;
-            }
-
-            self::$stack['preview'] .=
-                "<span class='jst-line'>" . ($i + 1) . '</span>' .
-                "<span class='text'>" . $text . '</span><br>';
         }
-    }
-
-    /**
-     * Get customs methods to renderizate.
-     *
-     * @since 1.1.3
-     */
-    protected function getCustomMethods()
-    {
-        $showDefaultView = true;
-        $params = [self::$stack];
-
-        unset($params[0]['trace'], $params[0]['preview']);
-
-        $count = count(self::$customMethods);
-        $customMethods = self::$customMethods;
-
-        for ($i = 0; $i < $count; $i++) {
-            $custom = $customMethods[$i];
-            $class = isset($custom[0]) ? $custom[0] : false;
-            $method = isset($custom[1]) ? $custom[1] : false;
-            $repeat = $custom[2];
-            $showDefault = $custom[3];
-
-            if ($showDefault === false) {
-                $showDefaultView = false;
-            }
-
-            if ($repeat === 0) {
-                unset(self::$customMethods[$i]);
-            } else {
-                self::$customMethods[$i] = [$class, $method, $repeat--];
-            }
-
-            call_user_func_array([$class, $method], $params);
-        }
-
-        self::$customMethods = false;
-
-        return $showDefaultView;
-    }
-
-    /**
-     * Renderization.
-     *
-     * @return boolean
-     */
-    protected function render()
-    {
-        self::$stack['mode'] = defined('HHVM_VERSION') ? 'HHVM' : 'PHP';
-
-        if (self::$customMethods && ! $this->getCustomMethods()) {
-            return false;
-        }
-
-        $this->getPreviewCode();
-
-        if (! self::$styles) {
-            self::$styles = true;
-            self::$stack['css'] = require __DIR__ . '/public/css/styles.html';
-        }
-
-        $stack = self::$stack;
-
-        require __DIR__ . '/public/template/view.php';
-
-        return true;
     }
 }
