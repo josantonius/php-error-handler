@@ -14,7 +14,7 @@
 Biblioteca PHP para manejar errores.
 
 Para manejar excepciones puedes utilizar la biblioteca
-[josantonius/error-handler](https://github.com/josantonius/php-error-handler).
+[exception-handler](https://github.com/josantonius/php-exception-handler).
 
 ---
 
@@ -22,9 +22,9 @@ Para manejar excepciones puedes utilizar la biblioteca
 - [Requisitos](#requisitos)
 - [Cómo empezar](#cómo-empezar)
 - [Clases disponibles](#clases-disponibles)
-  - [ErrorHandler](#errorhandler)
-  - [ErrorHandled](#errorhandled)
-  - [ErrorException](#errorexception)
+  - [Clase ErrorHandler](#clase-errorhandler)
+  - [Clase ErrorHandled](#clase-errorhandled)
+  - [Clase ErrorException](#clase-errorexception)
 - [Excepciones utilizadas](#excepciones-utilizadas)
 - [Uso](#uso)
 - [Tests](#tests)
@@ -65,118 +65,143 @@ git clone https://github.com/josantonius/php-error-handler.git
 
 ## Clases disponibles
 
-### ErrorHandler
-
-Métodos disponibles en `Josantonius\ErrorHandler\ErrorHandler`:
-
-#### Convertir errores en excepciones
+### Clase ErrorException
 
 ```php
-$errorHandler->convertToExceptions(int ...$errorLevel): self
+/**
+ * Esta clase es una extensión de ErrorException.
+ * 
+ * @see https://www.php.net/manual/en/class.errorexception.php
+ */
+use Josantonius\ErrorHandler\ErrorException;
 ```
 
-**@param** `int[]` `$erroLevel` Define qué niveles de error se convertirán en excepciones.
-
-**@throws** [WrongErrorLevelException](#wrongerrorlevelexception)
-
-**@see** <https://www.php.net/manual/en/errorfunc.constants.php> para ver los niveles
-de error disponibles.
-
-**La excepción será lanzada desde la instancia [ErrorException](#errorexception).**
-
-#### Convertir errores en excepciones excepto algunos
-
-```php
-$errorHandler->convertToExceptionsExcept(int ...$errorLevel): self
-```
-
-**@param** `int[]` `$erroLevel` Define qué niveles de error se convertirán en excepciones.
-
-**@throws** [WrongErrorLevelException](#wrongerrorlevelexception)
-
-**@see** <https://www.php.net/manual/en/errorfunc.constants.php> para ver los niveles
-de error disponibles.
-
-**La excepción será lanzada desde la instancia [ErrorException](#errorexception).**
-
-#### Registrar función para manejar errores
-
-```php
-$errorHandler->register(callable $callback): self
-```
-
-**@see** <https://www.php.net/manual/en/functions.first_class_callable_syntax.php> para más
-información sobre la sintaxis de las llamadas de primera clase.
-
-El manejador de errores recibirá el objeto [ErrorHandled](#errorhandled).
-
-#### Utilizar los informes de errores para determinar qué errores se gestionan
-
-```php
-$errorHandler->useErrorReportingLevel(): self
-```
-
-**@see** <https://www.php.net/manual/en/function.error-reporting.php> para más información.
-
-Si se utiliza el valor de error_reporting() para determinar qué errores se manejan.
-
-**Si no se utiliza este método, todos los errores se enviarán al manejador.**
-
-### ErrorHandled
-
-Métodos disponibles en `Josantonius\ErrorHandler\ErrorHandled`:
-
-#### Obtener el archivo donde se produjo el error
+Obtener el archivo donde se produjo el error:
 
 ```php
 $errorHandled->getFile(): string
 ```
 
-#### Obtener el mensaje del error
-
-```php
-$errorHandled->getMessage(): string
-```
-
-#### Obtener el nivel del error
+Obtener el nivel del error:
 
 ```php
 $errorHandled->getLevel(): int
 ```
 
-#### Obtener el la línea donde se produjo el error
+Obtener el la línea donde se produjo el error:
 
 ```php
 $errorHandled->getLine(): int
 ```
 
-#### Obtener el nombre del error
+Obtener el mensaje del error:
+
+```php
+$errorHandled->getMessage(): string
+```
+
+Obtener el nombre del error:
 
 ```php
 $errorHandled->getName(): string
 ```
 
-### ErrorException
+### Clase ErrorHandled
 
-Los métodos disponibles en `Josantonius\ErrorHandler\ErrorException` son los mismos
-que en [ErrorHandled](#errorhandled).
+```php
+use Josantonius\ErrorHandler\ErrorHandled;
+```
 
-Esta clase extiende de [ErrorException](https://www.php.net/manual/en/class.errorexception.php).
+Obtener el archivo donde se produjo el error:
+
+```php
+$errorHandled->getFile(): string
+```
+
+Obtener el nivel del error:
+
+```php
+$errorHandled->getLevel(): int
+```
+
+Obtener el la línea donde se produjo el error:
+
+```php
+$errorHandled->getLine(): int
+```
+
+Obtener el mensaje del error:
+
+```php
+$errorHandled->getMessage(): string
+```
+
+Obtener el nombre del error:
+
+```php
+$errorHandled->getName(): string
+```
+
+### Clase ErrorHandler
+
+Convertir errores en excepciones:
+
+```php
+/**
+ * La excepción será lanzada desde la instancia ErrorException.
+ * 
+ * @param int[] $errorLevel Define qué niveles de error se convertirán en excepciones.
+ * 
+ * @throws WrongErrorLevelException si el nivel de error no es válido.
+ * 
+ * @see https://www.php.net/manual/en/errorfunc.constants.php para ver los niveles disponibles.
+ */
+$errorHandler->convertToExceptions(int ...$errorLevel): ErrorHandler
+```
+
+Convertir errores en excepciones excepto algunos:
+
+```php
+/**
+ * La excepción será lanzada desde la instancia ErrorException.
+ * 
+ * @param int[] $errorLevel Define qué niveles de error se convertirán en excepciones.
+ * 
+ * @throws WrongErrorLevelException si el nivel de error no es válido.
+ * 
+ * @see https://www.php.net/manual/en/errorfunc.constants.php para ver los niveles disponibles.
+ */
+$errorHandler->convertToExceptionsExcept(int ...$errorLevel): ErrorHandler
+```
+
+Registrar función para manejar errores:
+
+```php
+/**
+ * El manejador de errores recibirá el objeto ErrorHandled.
+ * 
+ * @see https://www.php.net/manual/en/functions.first_class_callable_syntax.php
+ */
+$errorHandler->register(callable $callback): ErrorHandler
+```
+
+Utilizar los informes de errores para determinar qué errores se gestionan:
+
+```php
+/**
+ * Si se utiliza el valor de error_reporting() para determinar qué errores se manejan.
+ *
+ * Si no se utiliza este método, todos los errores se enviarán al manejador.
+ *
+ * @see https://www.php.net/manual/en/function.error-reporting.php
+ */
+$errorHandler->useErrorReportingLevel(): ErrorHandler
+```
 
 ## Excepciones utilizadas
 
-### WrongErrorLevelException
-
-`Josantonius\ErrorHandler\Exceptions\WrongErrorLevelException` si el nivel de error no es válido.
-
-## Cómo empezar
-
-Para utilizar esta biblioteca:
-
 ```php
-use Josantonius\ErrorHandler\ErrorHandler;
-
-$errorHandler = new ErrorHandler();
+use Josantonius\ErrorHandler\Exceptions\WrongErrorLevelException;
 ```
 
 ## Uso
@@ -186,42 +211,61 @@ Ejemplo de uso para esta biblioteca:
 ### Convertir todos los errores en excepciones
 
 ```php
+use Josantonius\ErrorHandler\ErrorHandler;
+
+$errorHandler = new ErrorHandler();
+
 $errorHandler->convertToExceptions();
+
+// Todos los errores serán convertidos a excepciones.
 ```
 
-### Convert certain errors to exceptions
+### Convertir ciertos errores en excepciones
 
 ```php
-$errorHandler->convertToExceptions(E_USER_ERROR, E_USER_WARNING);
-```
+use Josantonius\ErrorHandler\ErrorHandler;
 
-Solo `E_USER_ERROR` y `E_USER_WARNING` serán convertidos a excepciones.
+$errorHandler = new ErrorHandler();
+
+$errorHandler->convertToExceptions(E_USER_ERROR, E_USER_WARNING);
+
+// Solo E_USER_ERROR and E_USER_WARNING serán convertidos a excepciones.
+```
 
 ### Convertir todos los errores en excepciones excepto algunos
 
 ```php
-$errorHandler->convertToExceptionsExcept(E_USER_DEPRECATED, E_USER_NOTICE);
-```
+use Josantonius\ErrorHandler\ErrorHandler;
 
-Todos los errores excepto `E_USER_DEPRECATED` y `E_USER_NOTICE` serán convertidos a excepciones.
+$errorHandler = new ErrorHandler();
+
+$errorHandler->convertToExceptionsExcept(E_USER_DEPRECATED, E_USER_NOTICE);
+
+// Todos los errores excepto E_USER_DEPRECATED y E_USER_NOTICE serán convertidos a excepciones.
+```
 
 ### Convertir en excepciones utilizando el nivel de notificación de errores
 
 ```php
-error_reporting(E_USER_ERROR) 
-```
+use Josantonius\ErrorHandler\ErrorHandler;
 
-```php
+error_reporting(E_USER_ERROR);
+
+$errorHandler = new ErrorHandler();
+
 $errorHandler->convertToExceptions()->useErrorReportingLevel();
+
+// Solo E_USER_ERROR será convertido en excepción.
 ```
 
-Solo `E_USER_ERROR` será convertido en excepción.
-
-### Convert to exceptions and use an exception handler
+### Convertir en excepciones y utilizar un manejador de excepciones
 
 ```php
-set_exception_handler(function (\ErrorException $exception) {
-    log([
+use ErrorException;
+use Josantonius\ErrorHandler\ErrorHandler;
+
+set_exception_handler(function (ErrorException $exception) {
+    var_dump([
         'level'   => $exception->getLevel(),
         'message' => $exception->getMessage(),
         'file'    => $exception->getFile(),
@@ -229,19 +273,22 @@ set_exception_handler(function (\ErrorException $exception) {
         'name'    => $exception->getName(),
     ]);
 });
-```
 
-```php
+$errorHandler = new ErrorHandler();
+
 $errorHandler->convertToExceptions();
+
+// Solo E_USER_ERROR será convertido en excepción.
 ```
 
-Solo `E_USER_ERROR` será convertido en excepción.
-
-### Register an error handler function
+### Registrar una función para manejar errores
 
 ```php
+use Josantonius\ErrorHandler\ErrorHandled;
+use Josantonius\ErrorHandler\ErrorHandler;
+
 function handler(Errorhandled $errorHandled): void {
-    log([
+    var_dump([
         'level'   => $errorHandled->getLevel(),
         'message' => $errorHandled->getMessage(),
         'file'    => $errorHandled->getFile(),
@@ -249,67 +296,52 @@ function handler(Errorhandled $errorHandled): void {
         'name'    => $errorHandled->getName(),
     ]);
  }
-```
 
-```php
-$errorHandled->register(
+$errorHandler = new ErrorHandler();
+
+$errorHandler->register(
     callback: handler(...)
 );
+
+// Todos los errores se convertirán en excepciones.
 ```
 
 ### Registrar una función para manejar errores y convertirlos en excepciones
 
 ```php
+use Josantonius\ErrorHandler\ErrorHandled;
+use Josantonius\ErrorHandler\ErrorHandler;
+
 class Handler {
     public static function errors(Errorhandled $exception): void { /* hacer algo */ }
 }
-```
 
-```php
-$errorHandled->register(
+$errorHandler = new ErrorHandler();
+
+$errorHandler->register(
     callback: Handler::errors(...)
 )->convertToExceptions();
+
+// El error será enviado al manejador de errores y luego lanzará la excepción.
 ```
-
-O:
-
-```php
-$errorHandled->register(
-    callback: Handler::errors(...)
-)->convertToExceptions(E_USER_ERROR, E_USER_WARNING);
-```
-
-O:
-
-```php
-$errorHandled->register(
-    callback: Handler::errors(...)
-)->convertToExceptionsExcept(E_USER_DEPRECATED, E_USER_NOTICE);
-```
-
-El error será enviado al manejador de errores y luego lanzará la excepción.
 
 ### Registrar manejador, convertir en excepciones y usar el nivel de reporte de errores
 
 ```php
+error_reporting(E_USER_ERROR);
+
 class Handler {
     public function errors(Errorhandled $exception): void { /* hacer algo */ }
 }
-```
 
-```php
-error_reporting(E_USER_ERROR) 
-```
-
-```php
 $handler = new Handler();
 
 $errorHandled->register(
     callback: $handler->errors(...),
 )->convertToExceptions()->useErrorReportingLevel();
-```
 
-Solo `E_USER_ERROR` se pasará al manejador y se convertirá en excepción.
+// Solo E_USER_ERROR se pasará al manejador y se convertirá en excepción.
+```
 
 ## Tests
 
