@@ -156,7 +156,7 @@ $errorHandled->getName(): string
 
 ### ErrorException
 
-The available methods in `Josantonius\ErrorHandler\Exceptions\ErrorException` are the same
+The available methods in `Josantonius\ErrorHandler\ErrorException` are the same
 as in [ErrorHandled](#errorhandled).
 
 This class extends from [ErrorException](https://www.php.net/manual/en/class.errorexception.php).
