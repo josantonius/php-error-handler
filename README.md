@@ -1,31 +1,44 @@
 # PHP ErrorHandler library
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/ErrorHandler/v/stable)](https://packagist.org/packages/josantonius/ErrorHandler) [![Latest Unstable Version](https://poser.pugx.org/josantonius/ErrorHandler/v/unstable)](https://packagist.org/packages/josantonius/ErrorHandler) [![License](https://poser.pugx.org/josantonius/ErrorHandler/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe730d61628249d280ecfb380a1ee3b8)](https://www.codacy.com/app/Josantonius/PHP-ErrorHandler?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/PHP-ErrorHandler&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/ErrorHandler/downloads)](https://packagist.org/packages/josantonius/ErrorHandler) [![Travis](https://travis-ci.org/Josantonius/PHP-ErrorHandler.svg)](https://travis-ci.org/Josantonius/PHP-ErrorHandler) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![CodeCov](https://codecov.io/gh/Josantonius/PHP-ErrorHandler/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/PHP-ErrorHandler)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/error-handler/v/stable)](https://packagist.org/packages/josantonius/error-handler)
+[![License](https://poser.pugx.org/josantonius/error-handler/license)](LICENSE)
+[![Total Downloads](https://poser.pugx.org/josantonius/error-handler/downloads)](https://packagist.org/packages/josantonius/error-handler)
+[![CI](https://github.com/josantonius/php-error-handler/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/josantonius/php-error-handler/actions/workflows/ci.yml)
+[![CodeCov](https://codecov.io/gh/josantonius/php-error-handler/branch/main/graph/badge.svg)](https://codecov.io/gh/josantonius/php-error-handler)
+[![PSR1](https://img.shields.io/badge/PSR-1-f57046.svg)](https://www.php-fig.org/psr/psr-1/)
+[![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](https://www.php-fig.org/psr/psr-4/)
+[![PSR12](https://img.shields.io/badge/PSR-12-1abc9c.svg)](https://www.php-fig.org/psr/psr-12/)
 
-[Versión en español](README-ES.md)
+**Translations**: [Español](.github/lang/es-ES/README.md)
 
-PHP library for handling exceptions and errors.
+PHP library for handling exceptions.
+
+To handle exceptions you can use the
+[josantonius/exception-handler](https://github.com/josantonius/php-exception-handler) library.
 
 ---
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Available Methods](#available-methods)
+- [Available Classes](#available-classes)
+  - [ErrorHandler](#errorhandler)
+  - [ErrorHandled](#errorhandled)
+  - [ErrorException](#errorexception)
+- [Exceptions Used](#exceptions-used)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
 - [Tests](#tests)
-- [Images](#images)
-- [TODO](#-todo)
-- [Contribute](#contribute)
-- [Repository](#repository)
+- [TODO](#todo)
+- [Changelog](#changelog)
+- [Contribution](#contribution)
+- [Sponsor](#Sponsor)
 - [License](#license)
-- [Copyright](#copyright)
 
 ---
 
 ## Requirements
 
-This library is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
+This library is compatible with the PHP versions: 8.1.
 
 ## Installation
 
@@ -33,161 +46,336 @@ The preferred way to install this extension is through [Composer](http://getcomp
 
 To install **PHP ErrorHandler library**, simply:
 
-    $ composer require Josantonius/ErrorHandler
+```console
+composer require josantonius/error-handler
+```
 
-The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
+The previous command will only install the necessary files,
+if you prefer to **download the entire source code** you can use:
 
-    $ composer require Josantonius/ErrorHandler --prefer-source
+```console
+composer require josantonius/error-handler --prefer-source
+```
 
 You can also **clone the complete repository** with Git:
 
-  $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
-
-Or **install it manually**:
-
-[Download ErrorHandler.php](https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php):
-
-    $ wget https://raw.githubusercontent.com/Josantonius/PHP-ErrorHandler/master/src/ErrorHandler.php
-
-## Available Methods
-
-Available methods in this library:
-
-### - Set customs methods to renderizate:
-
-```php
-ErrorHandler::setCustomMethod($class, $method, $repeat, $default);
+```console
+git clone https://github.com/josantonius/php-error-handler.git
 ```
 
-| Attribute | Description | Type | Required | Default
-| --- | --- | --- | --- | --- |
-| $class | Class name or class object. | callable | Yes | |
-| $method | Method name. | string| Yes | |
-| $repeat | Number of times to repeat method. | int | No | 0 |
-| $default | Show default view. | boolean | No | false |
+## Available Classes
 
-**# Return** (void)
+### ErrorHandler
+
+Available methods in `Josantonius\ErrorHandler\ErrorHandler`:
+
+#### Convert errors to exceptions
+
+```php
+$errorHandler->convertToExceptions(int ...$errorLevel): self
+```
+
+**@param** `int[]` `$erroLevel` Define the specific error levels that will become exceptions.
+
+**@throws** [WrongErrorLevelException](#wrongerrorlevelexception)
+
+**@see** <https://www.php.net/manual/en/errorfunc.constants.php> to view available error levels.
+
+**The exception will be thrown from the [ErrorException](#errorexception) instance.**
+
+#### Convert errors to exceptions except for some of them
+
+```php
+$errorHandler->convertToExceptionsExcept(int ...$errorLevel): self
+```
+
+**@param** `int[]` `$erroLevel` Define specific error levels that will not become exceptions.
+
+**@throws** [WrongErrorLevelException](#wrongerrorlevelexception)
+
+**@see** <https://www.php.net/manual/en/errorfunc.constants.php> to view available error levels.
+
+**The exception will be thrown from the [ErrorException](#errorexception) instance.**
+
+#### Register error handler function
+
+```php
+$errorHandler->register(callable $callback): self
+```
+
+**@see** <https://www.php.net/manual/en/functions.first_class_callable_syntax.php> for more
+information about first class callable syntax.
+
+The error handler will receive the [ErrorHandled](#errorhandled) object.
+
+#### Use error reporting to determine which errors are handled
+
+```php
+$errorHandler->useErrorReportingLevel(): self
+```
+
+**@see** <https://www.php.net/manual/en/function.error-reporting.php> for more information.
+
+If the setting value in error_reporting() is used to determine which errors are handled.
+
+**If this method is not used, all errors will be sent to the handler.**
+
+### ErrorHandled
+
+Available methods in `Josantonius\ErrorHandler\ErrorHandled`:
+
+#### Gets error file
+
+```php
+$errorHandled->getFile(): string
+```
+
+#### Gets error message
+
+```php
+$errorHandled->getMessage(): string
+```
+
+#### Gets error level
+
+```php
+$errorHandled->getLevel(): int
+```
+
+#### Gets error file line
+
+```php
+$errorHandled->getLine(): int
+```
+
+#### Gets error name
+
+```php
+$errorHandled->getName(): string
+```
+
+### ErrorException
+
+The available methods in `Josantonius\ErrorHandler\ErrorException` are the same
+as in [ErrorHandled](#errorhandled).
+
+This class extends from [ErrorException](https://www.php.net/manual/en/class.errorexception.php).
+
+## Exceptions Used
+
+### WrongErrorLevelException
+
+`Josantonius\ErrorHandler\Exceptions\WrongErrorLevelException` if error level is not valid.
 
 ## Quick Start
 
-To use this class with **Composer**:
+To use this library:
 
 ```php
-require __DIR__ . '/vendor/autoload.php';
-
 use Josantonius\ErrorHandler\ErrorHandler;
-```
 
-Or If you installed it **manually**, use it:
-
-```php
-require_once __DIR__ . '/ErrorHandler.php';
-
-use Josantonius\ErrorHandler\ErrorHandler;
+$errorHandler = new ErrorHandler();
 ```
 
 ## Usage
 
-Example of use for this library:
+Examples of use for this library:
+
+### Convert all errors to exceptions
 
 ```php
-/** 
- * It is recommended to instantiate the class in a base file as the index.php */
-
-new ErrorHandler;
-
-/**
- * Optionally you can enter one or more methods to be executed instead the 
- * default view. The indicated method will receive an array with the
- * following parameters:
- *
- * [
- *  'type'      => 'Error|Exception',
- *  'message'   => 'exception|error message',
- *  'file'      => 'exception|error file',
- *  'line '     => 'exception|error line',
- *  'code'      => 'exception|error code',
- *  'http-code' => 'HTTP response status code',
- *  'mode'      => 'PHP|HHVM',
- * ];
- * 
- */
- 
-$class   = $this;
-$method  = 'customMethodResponse';
-$times   = 0;
-$default = true;
-
-ErrorHandler::SetCustomMethod($class, $method, $times, $default);
+$errorHandler->convertToExceptions();
 ```
 
-## Tests 
+### Convert certain errors to exceptions
+
+```php
+$errorHandler->convertToExceptions(E_USER_ERROR, E_USER_WARNING);
+```
+
+Only `E_USER_ERROR` and `E_USER_WARNING` will be converted to exceptions.
+
+### Convert all errors to exceptions except for some of them
+
+```php
+$errorHandler->convertToExceptionsExcept(E_USER_DEPRECATED, E_USER_NOTICE);
+```
+
+All errors except `E_USER_DEPRECATED` and `E_USER_NOTICE` will be converted to exceptions.
+
+### Convert to exceptions using error reporting level
+
+```php
+error_reporting(E_USER_ERROR) 
+```
+
+```php
+$errorHandler->convertToExceptions()->useErrorReportingLevel();
+```
+
+Only `E_USER_ERROR` will be converted to exception.
+
+### Convert to exceptions and use an exception handler
+
+```php
+set_exception_handler(function (\ErrorException $exception) {
+    log([
+        'level'   => $exception->getLevel(),
+        'message' => $exception->getMessage(),
+        'file'    => $exception->getFile(),
+        'line'    => $exception->getLine(),
+        'name'    => $exception->getName(),
+    ]);
+});
+```
+
+```php
+$errorHandler->convertToExceptions();
+```
+
+Only `E_USER_ERROR` will be converted to exception.
+
+### Register an error handler function
+
+```php
+function handler(Errorhandled $errorHandled): void {
+    log([
+        'level'   => $errorHandled->getLevel(),
+        'message' => $errorHandled->getMessage(),
+        'file'    => $errorHandled->getFile(),
+        'line'    => $errorHandled->getLine(),
+        'name'    => $errorHandled->getName(),
+    ]);
+ }
+```
+
+```php
+$errorHandled->register(
+    callback: handler(...)
+);
+```
+
+### Register error handler function and convert to exceptions
+
+```php
+class Handler {
+    public static function errors(Errorhandled $exception): void { /* do something */ }
+}
+```
+
+```php
+$errorHandled->register(
+    callback: Handler::errors(...)
+)->convertToExceptions();
+```
+
+Or:
+
+```php
+$errorHandled->register(
+    callback: Handler::errors(...)
+)->convertToExceptions(E_USER_ERROR, E_USER_WARNING);
+```
+
+Or:
+
+```php
+$errorHandled->register(
+    callback: Handler::errors(...)
+)->convertToExceptionsExcept(E_USER_DEPRECATED, E_USER_NOTICE);
+```
+
+The error will be sent to the error handler and then throw the exception.
+
+### Register error handler function, convert to exceptions and use error reporting level
+
+```php
+class Handler {
+    public function errors(Errorhandled $exception): void { /* do something */ }
+}
+```
+
+```php
+error_reporting(E_USER_ERROR) 
+```
+
+```php
+$handler = new Handler();
+
+$errorHandled->register(
+    callback: $handler->errors(...),
+)->convertToExceptions()->useErrorReportingLevel();
+```
+
+Only `E_USER_ERROR` will be passed to the handler and converted to exception.
+
+## Tests
 
 To run [tests](tests) you just need [composer](http://getcomposer.org/download/) and to execute the following:
 
-    $ git clone https://github.com/Josantonius/PHP-ErrorHandler.git
-    
-    $ cd PHP-ErrorHandler
+```console
+git clone https://github.com/josantonius/php-error-handler.git
+```
 
-    $ composer install
+```console
+cd php-error-handler
+```
+
+```console
+composer install
+```
 
 Run unit tests with [PHPUnit](https://phpunit.de/):
 
-    $ composer phpunit
+```console
+composer phpunit
+```
 
-Run [PSR2](http://www.php-fig.org/psr/psr-2/) code standard tests with [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
+Run code standard tests with [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
-    $ composer phpcs
+```console
+composer phpcs
+```
 
 Run [PHP Mess Detector](https://phpmd.org/) tests to detect inconsistencies in code style:
 
-    $ composer phpmd
+```console
+composer phpmd
+```
 
 Run all previous tests:
 
-    $ composer tests
+```console
+composer tests
+```
 
-## Images
+## TODO
 
-![image](resources/images/exception.png)
-![image](resources/images/error.png)
-![image](resources/images/notice.png)
-![image](resources/images/warning.png)
+- [ ] Add new feature
+- [ ] Improve tests
+- [ ] Improve documentation
+- [ ] Improve English translation in the README file
+- [ ] Refactor code for disabled code style rules (see phpmd.xml and phpcs.xml)
 
-## ☑ TODO
+## Changelog
 
-- [ ] Add new feature.
-- [ ] Improve tests.
-- [ ] Improve documentation.
-- [ ] Refactor code for disabled code style rules. See [phpmd.xml](phpmd.xml) and [.php_cs.dist](.php_cs.dist).
+Detailed changes for each release are documented in the
+[release notes](https://github.com/josantonius/php-error-handler/releases).
 
-## Contribute
+## Contribution
 
-If you would like to help, please take a look at the list of
-[issues](https://github.com/Josantonius/PHP-ErrorHandler/issues) or the [To Do](#-todo) checklist.
+Please make sure to read the [Contributing Guide](.github/CONTRIBUTING.md), before making a pull
+request, start a discussion or report a issue.
 
-**Pull requests**
+Thanks to all [contributors](https://github.com/josantonius/php-error-handler/graphs/contributors)! :heart:
 
-* [Fork and clone](https://help.github.com/articles/fork-a-repo).
-* Run the command `composer install` to install the dependencies.
-  This will also install the [dev dependencies](https://getcomposer.org/doc/03-cli.md#install).
-* Run the command `composer fix` to excute code standard fixers.
-* Run the [tests](#tests).
-* Create a **branch**, **commit**, **push** and send me a
-  [pull request](https://help.github.com/articles/using-pull-requests).
+## Sponsor
 
-## Repository
-
-The file structure from this repository was created with [PHP-Skeleton](https://github.com/Josantonius/PHP-Skeleton).
+If this project helps you to reduce your development time,
+[you can sponsor me](https://github.com/josantonius#sponsor) to support my open source work :blush:
 
 ## License
 
-This project is licensed under **MIT license**. See the [LICENSE](LICENSE) file for more info.
+This repository is licensed under the [MIT License](LICENSE).
 
-## Copyright
-
-2016 - 2018 Josantonius, [josantonius.com](https://josantonius.com/)
-
-If you find it useful, let me know :wink:
-
-You can contact me on [Twitter](https://twitter.com/Josantonius) or through my [email](mailto:hello@josantonius.com).
+Copyright © 2016-present, [Josantonius](https://github.com/josantonius#contact)
