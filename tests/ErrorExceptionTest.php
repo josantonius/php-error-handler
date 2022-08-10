@@ -13,7 +13,7 @@ namespace Josantonius\ErrorHandler\Tests\ErrorHandler;
 
 use PHPUnit\Framework\TestCase;
 use Josantonius\ErrorHandler\ErrorHandled;
-use Josantonius\ErrorHandler\Exceptions\ErrorException;
+use Josantonius\ErrorHandler\ErrorException;
 
 class ErrorExceptionTest extends TestCase
 {
