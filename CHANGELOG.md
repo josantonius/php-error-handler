@@ -10,6 +10,7 @@
 
 * The alignment of the asterisks in the comments has been fixed.
 
+
 ## [v2.0.1](https://github.com/josantonius/php-error/releases/tag/v2.0.1) (2022-08-11)
 
 * Documentation was improved.
