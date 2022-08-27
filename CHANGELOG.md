@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [v2.0.2](https://github.com/josantonius/php-error/releases/tag/v2.0.2) (2022-XX-XX)
+
+* The notation type in the test function names has been changed from camel to snake case for readability.
+
+* Functions were added to document the methods and avoid confusion.
+
+* Disabled the ´CamelCaseMethodName´ rule in ´phpmd.xml´ to avoid warnings about function names in tests.
+
+* The alignment of the asterisks in the comments has been fixed.
+
+
 ## [v2.0.1](https://github.com/josantonius/php-error/releases/tag/v2.0.1) (2022-08-11)
 
 * Documentation was improved.

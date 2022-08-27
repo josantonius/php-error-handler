@@ -1,13 +1,15 @@
 <?php
 
 /*
-* This file is part of https://github.com/josantonius/php-error-handler repository.
-*
-* (c) Josantonius <hello@josantonius.dev>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of https://github.com/josantonius/php-error-handler repository.
+ *
+ * (c) Josantonius <hello@josantonius.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 
 namespace Josantonius\ErrorHandler\Tests\ErrorHandler;
 
@@ -34,7 +36,7 @@ class HandlerTest extends TestCase
         $this->errorHandler = new ErrorHandler();
     }
 
-    public function testShouldConvertErrorsToExceptions(): void
+    public function test_should_convert_errors_to_exceptions(): void
     {
         $this->errorHandler->convertToExceptions();
 
@@ -43,7 +45,7 @@ class HandlerTest extends TestCase
         $this->simulateError($this->errorHandler, E_ERROR);
     }
 
-    public function testShouldSendTheErrorToTheHandlerWhenOneIsRegistered(): void
+    public function test_should_send_the_error_to_the_handler_when_one_is_registered(): void
     {
         $this->errorHandler->register($this->handler->init(...));
 
@@ -60,7 +62,7 @@ class HandlerTest extends TestCase
         $this->assertEquals(E_ERROR, History::get(0)->errorHandled->getLevel());
     }
 
-    public function testShouldUseErrorReportingLevelToHandleErrorsIfSet(): void
+    public function test_should_use_error_reporting_level_to_handle_errors_if_set(): void
     {
         $handler = $this->errorHandler;
 
