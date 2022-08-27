@@ -1,13 +1,15 @@
 <?php
 
 /*
-* This file is part of https://github.com/josantonius/php-error-handler repository.
-*
-* (c) Josantonius <hello@josantonius.dev>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of https://github.com/josantonius/php-error-handler repository.
+ *
+ * (c) Josantonius <hello@josantonius.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 
 namespace Josantonius\ErrorHandler\Tests\ErrorHandler;
 
@@ -32,7 +34,7 @@ class CheckForShutdownErrorsTest extends TestCase
         $this->errorHandler = new ErrorHandler();
     }
 
-    public function testShouldSendTheHandlerAShutdownError(): void
+    public function test_should_send_the_handler_a_shutdown_error(): void
     {
         $this->errorHandler->register($this->handler->init(...));
 
@@ -44,7 +46,7 @@ class CheckForShutdownErrorsTest extends TestCase
         $this->assertEquals(E_ERROR, History::get(0)->errorHandled->getLevel());
     }
 
-    public function testShouldIgnoreAnythingOtherThanAShutdownError(): void
+    public function test_should_ignore_anything_other_than_a_shutdown_error(): void
     {
         $this->errorHandler->register($this->handler->init(...));
 

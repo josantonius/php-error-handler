@@ -1,13 +1,15 @@
 <?php
 
 /*
-* This file is part of https://github.com/josantonius/php-error-handler repository.
-*
-* (c) Josantonius <hello@josantonius.dev>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of https://github.com/josantonius/php-error-handler repository.
+ *
+ * (c) Josantonius <hello@josantonius.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 
 namespace Josantonius\ErrorHandler\Tests\ErrorHandler;
 
@@ -25,7 +27,7 @@ class UseErrorReportingLevelTest extends TestCase
         $this->errorHandler = new ErrorHandler();
     }
 
-    public function testShouldSetToUseErrorReportingLevel(): void
+    public function test_should_set_to_use_error_reporting_level(): void
     {
         $this->assertInstanceOf(
             ErrorHandler::class,

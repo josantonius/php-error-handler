@@ -1,13 +1,15 @@
 <?php
 
 /*
-* This file is part of https://github.com/josantonius/php-error-handler repository.
-*
-* (c) Josantonius <hello@josantonius.dev>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of https://github.com/josantonius/php-error-handler repository.
+ *
+ * (c) Josantonius <hello@josantonius.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 
 namespace Josantonius\ErrorHandler\Tests\ErrorHandler;
 
@@ -31,7 +33,7 @@ class ConvertToExceptionsTest extends TestCase
         $this->errorLevels = $this->getPrivateProperty($this->errorHandler, 'errorLevels');
     }
 
-    public function testShouldSetConvertToExceptionsAllErrors(): void
+    public function test_should_set_convert_to_exceptions_all_errors(): void
     {
         $this->assertInstanceOf(ErrorHandler::class, $this->errorHandler->convertToExceptions());
 
@@ -40,7 +42,7 @@ class ConvertToExceptionsTest extends TestCase
         $this->assertSame(array_keys($this->errorLevels), $exceptionable);
     }
 
-    public function testShouldSetConvertToExceptionsSomeErrors(): void
+    public function test_should_set_convert_to_exceptions_some_errors(): void
     {
         $this->assertInstanceOf(
             ErrorHandler::class,
@@ -52,7 +54,7 @@ class ConvertToExceptionsTest extends TestCase
         $this->assertSame([E_WARNING, E_NOTICE], $exceptionable);
     }
 
-    public function testShouldFailIfTheErrorLevelPassedToConvertToExceptionsIsWrong(): void
+    public function test_should_fail_if_error_level_passed_to_convert_is_wrong(): void
     {
         $this->expectException(WrongErrorLevelException::class);
 
