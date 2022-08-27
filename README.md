@@ -30,7 +30,7 @@ To handle exceptions you can use the
 - [TODO](#todo)
 - [Changelog](#changelog)
 - [Contribution](#contribution)
-- [Sponsor](#Sponsor)
+- [Sponsor](#sponsor)
 - [License](#license)
 
 ---
@@ -66,92 +66,76 @@ git clone https://github.com/josantonius/php-error-handler.git
 
 ### ErrorException Class
 
-```php
-/**
- * This class extends from ErrorException.
- * 
- * @see https://www.php.net/manual/en/class.errorexception.php
- */
-use Josantonius\ErrorHandler\ErrorException;
-```
+`Josantonius\ErrorHandler\ErrorException` Extends
+[ErrorException](https://www.php.net/manual/en/class.errorexception.php)
 
 Gets error file:
 
 ```php
-$errorHandler->getFile(): string
+public function getFile(): string;
 ```
 
 Gets error level:
 
 ```php
-$errorHandler->getLevel(): int
+public function getLevel(): int;
 ```
 
 Gets error file line:
 
 ```php
-$errorHandler->getLine(): int
+public function getLine(): int;
 ```
 
 Gets error message:
 
 ```php
-$errorHandler->getMessage(): string
+public function getMessage(): string;
 ```
 
 Gets error name:
 
 ```php
-$errorHandler->getName(): string
+public function getName(): string;
 ```
 
 ### ErrorHandled Class
 
-```php
-use Josantonius\ErrorHandler\ErrorHandled;
-```
+`Josantonius\ErrorHandler\ErrorHandled`
 
 Gets error file:
 
 ```php
-$errorHandled->getFile(): string
+public function getFile(): string;
 ```
 
 Gets error level:
 
 ```php
-$errorHandled->getLevel(): int
+public function getLevel(): int;
 ```
 
 Gets error file line:
 
 ```php
-$errorHandled->getLine(): int
+public function getLine(): int;
 ```
 
 Gets error message:
 
 ```php
-$errorHandled->getMessage(): string
+public function getMessage(): string;
 ```
 
 Gets error name:
 
 ```php
-$errorHandled->getName(): string
+public function getName(): string;
 ```
 
 ### ErrorHandler Class
 
-```php
-use Josantonius\ErrorHandler\ErrorHandler;
-```
-
-Create object:
-
-```php
-$errorHandler = new ErrorHandler();
-```
+`Josantonius\ErrorHandler\ErrorHandler`
 
 Convert errors to exceptions:
 
@@ -165,7 +149,7 @@ Convert errors to exceptions:
  * 
  * @see https://www.php.net/manual/en/errorfunc.constants.php to view available error levels.
  */
-$errorHandler->convertToExceptions(int ...$errorLevel): ErrorHandler
+public function convertToExceptions(int ...$errorLevel): ErrorHandler;
 ```
 
 Convert errors to exceptions except for some of them:
@@ -180,7 +164,7 @@ Convert errors to exceptions except for some of them:
  * 
  * @see https://www.php.net/manual/en/errorfunc.constants.php to view available error levels.
  */
-$errorHandler->convertToExceptionsExcept(int ...$errorLevel): ErrorHandler
+public function convertToExceptionsExcept(int ...$errorLevel): ErrorHandler;
 ```
 
 Register error handler function:
@@ -191,7 +175,7 @@ Register error handler function:
  * 
  * @see https://www.php.net/manual/en/functions.first_class_callable_syntax.php
  */
-$errorHandler->register(callable $callback): ErrorHandler
+public function register(callable $callback): ErrorHandler;
 ```
 
 Use error reporting to determine which errors are handled:
@@ -204,7 +188,7 @@ Use error reporting to determine which errors are handled:
  *
  * @see https://www.php.net/manual/en/function.error-reporting.php
  */
-$errorHandler->useErrorReportingLevel(): ErrorHandler
+public function useErrorReportingLevel(): ErrorHandler;
 ```
 
 ## Exceptions Used

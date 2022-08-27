@@ -18,9 +18,8 @@ Para manejar excepciones puedes utilizar la biblioteca
 
 ---
 
-- [Instalación](#instalación)
 - [Requisitos](#requisitos)
-- [Cómo empezar](#cómo-empezar)
+- [Instalación](#instalación)
 - [Clases disponibles](#clases-disponibles)
   - [Clase ErrorHandler](#clase-errorhandler)
   - [Clase ErrorHandled](#clase-errorhandled)
@@ -67,79 +66,71 @@ git clone https://github.com/josantonius/php-error-handler.git
 
 ### Clase ErrorException
 
-```php
-/**
- * Esta clase es una extensión de ErrorException.
- * 
- * @see https://www.php.net/manual/en/class.errorexception.php
- */
-use Josantonius\ErrorHandler\ErrorException;
-```
+`Josantonius\ErrorHandler\ErrorException` Extends
+[ErrorException](https://www.php.net/manual/en/class.errorexception.php)
 
 Obtener el archivo donde se produjo el error:
 
 ```php
-$errorHandled->getFile(): string
+public function getFile(): string;
 ```
 
 Obtener el nivel del error:
 
 ```php
-$errorHandled->getLevel(): int
+public function getLevel(): int;
 ```
 
 Obtener el la línea donde se produjo el error:
 
 ```php
-$errorHandled->getLine(): int
+public function getLine(): int;
 ```
 
 Obtener el mensaje del error:
 
 ```php
-$errorHandled->getMessage(): string
+public function getMessage(): string;
 ```
 
 Obtener el nombre del error:
 
 ```php
-$errorHandled->getName(): string
+public function getName(): string;
 ```
 
 ### Clase ErrorHandled
 
-```php
-use Josantonius\ErrorHandler\ErrorHandled;
-```
+`Josantonius\ErrorHandler\ErrorHandled`
 
 Obtener el archivo donde se produjo el error:
 
 ```php
-$errorHandled->getFile(): string
+public function getFile(): string;
 ```
 
 Obtener el nivel del error:
 
 ```php
-$errorHandled->getLevel(): int
+public function getLevel(): int;
 ```
 
 Obtener el la línea donde se produjo el error:
 
 ```php
-$errorHandled->getLine(): int
+public function getLine(): int;
 ```
 
 Obtener el mensaje del error:
 
 ```php
-$errorHandled->getMessage(): string
+public function getMessage(): string;
 ```
 
 Obtener el nombre del error:
 
 ```php
-$errorHandled->getName(): string
+public function getName(): string;
 ```
 
 ### Clase ErrorHandler
@@ -156,7 +147,7 @@ Convertir errores en excepciones:
  * 
  * @see https://www.php.net/manual/en/errorfunc.constants.php para ver los niveles disponibles.
  */
-$errorHandler->convertToExceptions(int ...$errorLevel): ErrorHandler
+public function convertToExceptions(int ...$errorLevel): ErrorHandler;
 ```
 
 Convertir errores en excepciones excepto algunos:
@@ -171,7 +162,7 @@ Convertir errores en excepciones excepto algunos:
  * 
  * @see https://www.php.net/manual/en/errorfunc.constants.php para ver los niveles disponibles.
  */
-$errorHandler->convertToExceptionsExcept(int ...$errorLevel): ErrorHandler
+public function convertToExceptionsExcept(int ...$errorLevel): ErrorHandler;
 ```
 
 Registrar función para manejar errores:
@@ -182,7 +173,7 @@ Registrar función para manejar errores:
  * 
  * @see https://www.php.net/manual/en/functions.first_class_callable_syntax.php
  */
-$errorHandler->register(callable $callback): ErrorHandler
+public function register(callable $callback): ErrorHandler;
 ```
 
 Utilizar los informes de errores para determinar qué errores se gestionan:
@@ -195,7 +186,7 @@ Utilizar los informes de errores para determinar qué errores se gestionan:
  *
  * @see https://www.php.net/manual/en/function.error-reporting.php
  */
-$errorHandler->useErrorReportingLevel(): ErrorHandler
+public function useErrorReportingLevel(): ErrorHandler;
 ```
 
 ## Excepciones utilizadas
