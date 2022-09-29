@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v2.0.2](https://github.com/josantonius/php-error/releases/tag/v2.0.2) (2022-XX-XX)
+## [v2.0.2](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.2) (2022-09-29)
 
 * The notation type in the test function names has been changed from camel to snake case for readability.
 
@@ -10,12 +10,13 @@
 
 * The alignment of the asterisks in the comments has been fixed.
 
+* Tests for Windows have been added.
 
-## [v2.0.1](https://github.com/josantonius/php-error/releases/tag/v2.0.1) (2022-08-11)
+## [v2.0.1](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.1) (2022-08-11)
 
 * Documentation was improved.
 
-## [v2.0.0](https://github.com/josantonius/php-error/releases/tag/v2.0.0) (2022-08-10)
+## [v2.0.0](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.0) (2022-08-10)
 
 > Version 1.x is considered as deprecated and unsupported.
 > In this version (2.x) the library was completely restructured.
@@ -65,13 +66,13 @@ to handle them.
 * Deleted `README-ES.MD` file.
 * Deleted `.php_cs.dist` file.
 
-## [1.1.8](https://github.com/josantonius/php-error/releases/tag/1.1.8) (2018-01-06)
+## [1.1.8](https://github.com/josantonius/php-error-handler/releases/tag/1.1.8) (2018-01-06)
 
 * The tests were fixed.
 
 * Changes in documentation.
 
-## [1.1.7](https://github.com/josantonius/php-error/releases/tag/1.1.7) (2017-11-08)
+## [1.1.7](https://github.com/josantonius/php-error-handler/releases/tag/1.1.7) (2017-11-08)
 
 * Implemented `PHP Mess Detector` to detect inconsistencies in code styles.
 
@@ -79,7 +80,7 @@ to handle them.
 
 * Implemented `PHP Coding Standards Fixer` to organize PHP code automatically according to PSR standards.
 
-## [1.1.6](https://github.com/josantonius/php-error/releases/tag/1.1.6) (2017-10-27)
+## [1.1.6](https://github.com/josantonius/php-error-handler/releases/tag/1.1.6) (2017-10-27)
 
 * Implemented `PSR-4 autoloader standard` from all library files.
 
@@ -99,7 +100,7 @@ to handle them.
 
 * Deleted `ErrorHandler/vendor` folder.
 
-## [1.1.5](https://github.com/josantonius/php-error/releases/tag/1.1.5) (2017-09-13)
+## [1.1.5](https://github.com/josantonius/php-error-handler/releases/tag/1.1.5) (2017-09-13)
 
 * Unit tests supported by `PHPUnit` were added.
 
@@ -127,13 +128,13 @@ to handle them.
 * Deleted `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSetCustomMethod()` method.
 * Deleted `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->_customMethodResponse()` method.
 
-## [1.1.4](https://github.com/josantonius/php-error/releases/tag/1.1.4) (2017-07-16)
+## [1.1.4](https://github.com/josantonius/php-error-handler/releases/tag/1.1.4) (2017-07-16)
 
 * Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException` class.
 * Deleted `Josantonius\ErrorHandler\Exception\Exceptions` abstract class.
 * Deleted `Josantonius\ErrorHandler\Exception\ErrorHandlerException->__construct()` method.
 
-## [1.1.3](https://github.com/josantonius/php-error/releases/tag/1.1.3) (2017-05-15)
+## [1.1.3](https://github.com/josantonius/php-error-handler/releases/tag/1.1.3) (2017-05-15)
 
 * You can now add custom methods to run instead of displaying the default view.
 
@@ -144,21 +145,21 @@ to handle them.
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->testSetCustomMethod()` method.
 * Added `Josantonius\ErrorHandler\Tests\ErrorHandlerTest->_customMethodResponse()` method.
 
-## [1.1.2](https://github.com/josantonius/php-error/releases/tag/1.1.2) (2017-03-18)
+## [1.1.2](https://github.com/josantonius/php-error-handler/releases/tag/1.1.2) (2017-03-18)
 
 * Some files were excluded from download and comments and readme files were updated.
 
-## [1.1.1](https://github.com/josantonius/php-error/releases/tag/1.1.1) (2017-02-21)
+## [1.1.1](https://github.com/josantonius/php-error-handler/releases/tag/1.1.1) (2017-02-21)
 
 * Added `Josantonius\ErrorHandler\ErrorHandler->getPreviewCode()` method.
 * Deleted `Josantonius\ErrorHandler\ErrorHandler->catchThrowable()` method.
 * Deleted `Josantonius\ErrorHandler\ErrorHandler->catchException()` method.
 
-## [1.1.0](https://github.com/josantonius/php-error/releases/tag/1.1.0) (2017-01-30)
+## [1.1.0](https://github.com/josantonius/php-error-handler/releases/tag/1.1.0) (2017-01-30)
 
 * Compatible with PHP 5.6 or higher.
 
-## [1.0.0](https://github.com/josantonius/php-error/releases/tag/1.0.0) (2016-12-14)
+## [1.0.0](https://github.com/josantonius/php-error-handler/releases/tag/1.0.0) (2016-12-14)
 
 * Compatible only with PHP 7.0 or higher.
 In the next versions, the library will be modified to make it compatible with PHP 5.6 or higher.
