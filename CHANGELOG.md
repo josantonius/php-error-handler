@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v2.0.2](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.2) (2022-XX-XX)
+## [v2.0.2](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.2) (2022-09-29)
 
 * The notation type in the test function names has been changed from camel to snake case for readability.
 
