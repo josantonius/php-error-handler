@@ -12,8 +12,6 @@
 
 * Tests for Windows have been added.
 
-* Tests for PHP 8.2 have been added.
-
 ## [v2.0.1](https://github.com/josantonius/php-error-handler/releases/tag/v2.0.1) (2022-08-11)
 
 * Documentation was improved.
