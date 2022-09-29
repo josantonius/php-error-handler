@@ -39,7 +39,7 @@ To handle exceptions you can use the
 
 - Operating System: Linux | Windows.
 
-- PHP versions: 8.1 | 8.2.
+- PHP versions: 8.1.
 
 ## Installation
 

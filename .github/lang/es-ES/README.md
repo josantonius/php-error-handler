@@ -39,7 +39,7 @@ Para manejar excepciones puedes utilizar la biblioteca
 
 - Sistema operativo: Linux | Windows.
 
-- Versiones de PHP: 8.1 | 8.2.
+- Versiones de PHP: 8.1.
 
 ## Instalación
 
